@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9136471780635866816}
   - component: {fileID: 6014554554595494794}
   - component: {fileID: 1735449980591104804}
+  - component: {fileID: 1048448108034191308}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -273,6 +274,26 @@ MonoBehaviour:
   Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   MinCameraRotationDegrees: -85
   MaxCameraRotationDegrees: 85
+--- !u!114 &1048448108034191308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568179579492382839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee03777e6d166e644b2770b79c70d7de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionRange: 5
+  InteractablesMask:
+    serializedVersion: 2
+    m_Bits: 64
+  CurrentInteractable: {fileID: 0}
+  CheckOrigin: {fileID: 2049395992973227045}
+  CheckDirectionSupplier: {fileID: 2049395992973227045}
+  InteractionText: {fileID: 0}
 --- !u!1 &7989391284439973958
 GameObject:
   m_ObjectHideFlags: 0
