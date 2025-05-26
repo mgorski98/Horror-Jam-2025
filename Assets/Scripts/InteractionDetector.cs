@@ -13,6 +13,7 @@ public class InteractionDetector : MonoBehaviour
     public TMPro.TMP_Text InteractionText;
 
     private InputAction InteractAction;
+    [SerializeField]
     private InputActionAsset Actions;
 
     private void Awake() {

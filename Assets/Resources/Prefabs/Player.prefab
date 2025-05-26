@@ -294,6 +294,7 @@ MonoBehaviour:
   CheckOrigin: {fileID: 2049395992973227045}
   CheckDirectionSupplier: {fileID: 2049395992973227045}
   InteractionText: {fileID: 0}
+  Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
 --- !u!1 &7989391284439973958
 GameObject:
   m_ObjectHideFlags: 0
