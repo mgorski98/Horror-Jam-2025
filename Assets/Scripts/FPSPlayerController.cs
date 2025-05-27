@@ -1,25 +1,22 @@
-using Unity.VisualScripting;
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class FPSPlayerController : MonoBehaviour
 {
-    private InputAction MoveAction;
     public Vector3 MoveVector;
     public float MoveSpeed;
     public float CameraSensitivity;
     public Camera PlayerCamera;
     public CharacterController CharController;
 
-    [SerializeField]
-    private InputActionAsset Actions;
+    public InputActionSupplier MoveSupplier;
 
     private float CurrentCameraRotationX;
     public float MinCameraRotationDegrees;
     public float MaxCameraRotationDegrees;
 
     private void Awake() {
-        this.MoveAction = Actions.FindAction("Player/Move");
     }
 
     public void RotateCamera(InputAction.CallbackContext ctx) {
@@ -40,19 +37,18 @@ public class FPSPlayerController : MonoBehaviour
     }
 
     private void Update() {
-        var rawInputVector = MoveAction.ReadValue<Vector2>();
+        var rawInputVector = MoveSupplier.Action.ReadValue<Vector2>();
         MoveVector = transform.forward * rawInputVector.y + transform.right * rawInputVector.x;
     }
 
     private void FixedUpdate() {
-        CharController.Move(MoveVector * MoveSpeed * Time.deltaTime);
+        var vec = MoveVector;
+        if (CharController.isGrounded == false) {
+            vec.y = Physics.gravity.y * Time.fixedDeltaTime;
+        }
+        CharController.Move(vec * MoveSpeed * Time.fixedDeltaTime);
     }
 
     private void LateUpdate() {
-        DoHeadBob();
-    }
-
-    private void DoHeadBob() {
-
     }
 }
