@@ -21,7 +21,7 @@ namespace Assets.Scripts {
         public Camera PlayerCamera;
 
         public Transform ShipRoot;
-        public Rigidbody ShipRBody;
+        public CharacterController ShipRBody;
 
         public float ShipSpeedModifier = 10;
         public float ShipRotationSpeedModifier = 10;
@@ -91,8 +91,10 @@ namespace Assets.Scripts {
 
             CurrentSpeed = Mathf.Clamp(CurrentSpeed, -MaxSpeed, MaxSpeed);
 
-            //todo: 
-            CurrentTurnSpeed += shipRotation * Time.fixedDeltaTime * ShipRotationSpeedModifier;
+            //only rotate ship when there is the vertical input (forward/backward)
+            if (Mathf.Abs(shipAcceleration) > 0) {
+                CurrentTurnSpeed += shipRotation * Time.fixedDeltaTime * ShipRotationSpeedModifier;
+            }
             if (Mathf.Approximately(0f, shipRotation)) {
                 if (CurrentTurnSpeed > 0) {
                     CurrentTurnSpeed -= RotationIdleDrag * Time.fixedDeltaTime;
@@ -104,8 +106,8 @@ namespace Assets.Scripts {
             CurrentTurnSpeed = Mathf.Clamp(CurrentTurnSpeed, -MaxRotationSpeed, MaxRotationSpeed);
 
             var boatDirection = PlayerCamera.transform.forward;
-            ShipRBody.MovePosition(ShipRBody.transform.position + CurrentSpeed * Time.fixedDeltaTime * boatDirection);
-            ShipRBody.MoveRotation(ShipRBody.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
+            ShipRBody.Move(CurrentSpeed * Time.fixedDeltaTime * boatDirection);
+            ShipRBody.transform.rotation = (ShipRBody.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
 
             ShipWheelTransform.Rotate(shipRotation * ShipWheelRotateSpeed * Time.fixedDeltaTime * Vector3.up);
         }
