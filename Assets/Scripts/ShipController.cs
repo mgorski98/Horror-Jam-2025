@@ -86,10 +86,12 @@ namespace Assets.Scripts {
 
             CurrentSpeed = Mathf.Clamp(CurrentSpeed, -MaxSpeed, MaxSpeed);
 
-            //only rotate ship when there is the vertical input (forward/backward)
-            if (Mathf.Abs(shipAcceleration) > 0) {
-                CurrentTurnSpeed += shipRotation * Time.fixedDeltaTime * ShipRotationSpeedModifier;
+            var additionalMultiplier = 1f;
+            if ((CurrentTurnSpeed < 0 && shipRotation > 0) || (CurrentTurnSpeed > 0 && shipRotation < 0)) {
+                additionalMultiplier = 2f;
+                Debug.Log("Siema eniu");
             }
+            CurrentTurnSpeed += shipRotation * additionalMultiplier * Time.fixedDeltaTime * ShipRotationSpeedModifier;
             if (Mathf.Approximately(0f, shipRotation)) {
                 if (CurrentTurnSpeed > 0) {
                     CurrentTurnSpeed -= RotationIdleDrag * Time.fixedDeltaTime;
