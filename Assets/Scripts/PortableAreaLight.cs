@@ -12,6 +12,8 @@ namespace Assets.Scripts {
         private Animator MoveAnimator;
         [SerializeField]
         private Light AreaLight;
+        [SerializeField]
+        private Transform LampRoot;
 
         public bool IsLightActive = false;
 
@@ -19,8 +21,9 @@ namespace Assets.Scripts {
             if (!ctx.performed)
                 return;
 
+            //todo: zasymulować kaganek - użyć jointa, żeby ładnie dyndało może?
             IsLightActive = !IsLightActive;
-            AreaLight.gameObject.SetActive(IsLightActive);
+            LampRoot.gameObject.SetActive(IsLightActive);
         }
     }
 }

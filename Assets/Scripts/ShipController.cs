@@ -33,6 +33,14 @@ namespace Assets.Scripts {
         public float CurrentSpeed;
         public float CurrentTurnSpeed;
 
+        public AudioSource HonkAudioSource;
+        public AudioClip[] Honks;
+
+        public Light[] ShipLights;
+
+        //na potrzeby wyliczania obrażeń od kolizji
+        public Vector3 VelocityVector => ShipRBody.transform.forward * CurrentSpeed;
+
         public void StopControllingShip_Action(InputAction.CallbackContext ctx) {
             if (!ctx.performed)
                 return;
@@ -107,6 +115,29 @@ namespace Assets.Scripts {
             ShipRBody.transform.rotation = (ShipRBody.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
 
             ShipWheelTransform.Rotate(shipRotation * ShipWheelRotateSpeed * Time.fixedDeltaTime * Vector3.up);
+        }
+
+        public void HONK(InputAction.CallbackContext ctx) {
+            if (!ctx.performed)
+                return;
+
+            if ((Honks?.Length ?? 0) <= 0)
+                return;
+
+            HonkAudioSource.clip = Honks[Random.Range(0, Honks.Length)];
+            HonkAudioSource.Play();
+        }
+
+        public void ToggleShipLights(InputAction.CallbackContext ctx) {
+            if (!ctx.performed)
+                return;
+
+            if (ShipLights == null || ShipLights.Length <= 0)
+                return;
+
+            foreach (var light in ShipLights) {
+                light.gameObject.SetActive(!light.gameObject.activeSelf);
+            }
         }
     }
 }

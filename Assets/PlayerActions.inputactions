@@ -388,7 +388,7 @@
                 {
                     "name": "",
                     "id": "aa95423e-bdfa-4174-9e99-bdda67a30b20",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -457,6 +457,15 @@
                     "name": "Stop controlling",
                     "type": "Button",
                     "id": "80941d85-8645-458d-9b64-949e594200fa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle lights",
+                    "type": "Button",
+                    "id": "46beedc1-159e-4034-a92f-f518627b164d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -615,6 +624,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Stop controlling",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b4f0448-b953-4666-89d5-05d1729f8080",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Toggle lights",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
