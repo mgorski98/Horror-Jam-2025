@@ -21,6 +21,11 @@ public class InteractionDetector : MonoBehaviour
         this.InteractAction = Actions.FindAction("Player/Interact");
     }
 
+    private void OnDisable() {
+        if (InteractionText != null)
+            InteractionText.gameObject.SetActive(false);
+    }
+
     private void Update() {
         if (Physics.Raycast(CheckOrigin.position, CheckDirectionSupplier.forward, out RaycastHit hit, InteractionRange, InteractablesMask)) {
             var interactable = hit.transform.gameObject.GetComponent<InteractableObject>();
