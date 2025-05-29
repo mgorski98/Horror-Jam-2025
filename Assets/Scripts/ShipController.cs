@@ -44,7 +44,6 @@ namespace Assets.Scripts {
         }
 
         public void StopControllingShip() {
-            //todo przypisac nowego parenta (brak), o ile w ogole. moze przypisac na starcie?
             this.enabled = false;
             FPSController.enabled = true;
             this.InteractionDetector.enabled = true;
@@ -52,27 +51,23 @@ namespace Assets.Scripts {
             transform.SetParent(null);
             PlayerCamera.transform.SetParent(transform);
 
-            PlayerCamera.transform.DOMove(OldPosition, SnapDuration);
-            PlayerCamera.transform.DORotateQuaternion(OldRotation, SnapDuration);
+            PlayerCamera.transform.DOLocalMove(OldPosition, SnapDuration);
+            PlayerCamera.transform.DOLocalRotateQuaternion(OldRotation, SnapDuration);
         }
 
         public void TakeControlOfShip() {
-            //todo jak to nie zadziala to albo rpzesunac sama kamere albo wylaczyc collidery i grawitacje
-            //todo przypisac nowego parenta (statek)
-            //todo wyłączyć interaction detector
             this.enabled = true;
             FPSController.enabled = false;
             this.InteractionDetector.enabled = false;
-            OldPosition = PlayerCamera.transform.position;
-            OldRotation = PlayerCamera.transform.rotation;
+            //todo: zapisac lokalna pozycje kamery w obiekcie gracza i tam ja przywrocic wtedy, bo obecnie zle sie ta pozycja przywraca
+            OldPosition = PlayerCamera.transform.localPosition;
+            OldRotation = PlayerCamera.transform.localRotation;
             Input.SwitchCurrentActionMap("Ship");
             transform.SetParent(ShipRoot.transform);
             PlayerCamera.transform.SetParent(ShipRoot.transform);
 
-
             PlayerCamera.transform.DOMove(ShipControlTransformPositionTemplate.position, SnapDuration);
             PlayerCamera.transform.DORotateQuaternion(ShipControlTransformPositionTemplate.rotation, SnapDuration);
-
         }
 
         private void FixedUpdate() {
