@@ -611,17 +611,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &720394431 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1048448108034191308, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-  m_PrefabInstance: {fileID: 3105782040465034459}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee03777e6d166e644b2770b79c70d7de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &720394439 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
@@ -1587,10 +1576,6 @@ PrefabInstance:
       propertyPath: InteractionText
       value: 
       objectReference: {fileID: 1285125096}
-    - target: {fileID: 1048448108034191308, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: InteractionRange
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3821609460929578464, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1668,10 +1653,6 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: MaxSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipDrag
       value: 7.5
       objectReference: {fileID: 0}
@@ -1684,26 +1665,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2058152547}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: Acceleration
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: IdleShipDrag
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: MaxRotationSpeed
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: RotationIdleDrag
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: ShipSpeedModifier
-      value: 4.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipCharController
       value: 
       objectReference: {fileID: 0}
@@ -1711,14 +1672,6 @@ PrefabInstance:
       propertyPath: ShipWheelTransform
       value: 
       objectReference: {fileID: 81310046}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: InteractionDetector
-      value: 
-      objectReference: {fileID: 720394431}
-    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
-      propertyPath: ShipRotationSpeedModifier
-      value: 1.25
-      objectReference: {fileID: 0}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipControlTransformPositionTemplate
       value: 

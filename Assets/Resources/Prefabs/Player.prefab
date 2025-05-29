@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee03777e6d166e644b2770b79c70d7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionRange: 5
+  InteractionRange: 10
   InteractablesMask:
     serializedVersion: 2
     m_Bits: 64
@@ -341,6 +341,7 @@ MonoBehaviour:
   CheckDirectionSupplier: {fileID: 2049395992973227045}
   InteractionText: {fileID: 0}
   Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  TintColor: {r: 1, g: 0.46975583, b: 0.4481132, a: 1}
 --- !u!114 &8192916279135940297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,15 +357,23 @@ MonoBehaviour:
   SnapDuration: 0.25
   ShipControlTransformPositionTemplate: {fileID: 0}
   FPSController: {fileID: 1735449980591104804}
+  InteractionDetector: {fileID: 1048448108034191308}
   Input: {fileID: 6014554554595494794}
   MoveSupplier: {fileID: 2698881078001289643}
-  ShipSpeedModifier: 10
-  ShipRotationSpeedModifier: 10
-  MaxSpeed: 0
   ShipWheelTransform: {fileID: 0}
   ShipWheelRotateSpeed: 50
   PlayerCamera: {fileID: 5431804989087591233}
+  ShipRoot: {fileID: 0}
   ShipRBody: {fileID: 0}
+  ShipSpeedModifier: 4.25
+  ShipRotationSpeedModifier: 1.25
+  MaxSpeed: 6
+  Acceleration: 5
+  IdleShipDrag: 6.5
+  MaxRotationSpeed: 3.5
+  RotationIdleDrag: 2.5
+  CurrentSpeed: 0
+  CurrentTurnSpeed: 0
 --- !u!1 &4644259470461842488
 GameObject:
   m_ObjectHideFlags: 0
