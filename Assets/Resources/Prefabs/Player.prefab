@@ -662,22 +662,6 @@ MonoBehaviour:
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6296267834561494811}
-        m_TargetAssemblyTypeName: Assets.Scripts.PortableAreaLight, Assembly-CSharp
-        m_MethodName: ToggleLight_Action
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 67c37df8-68d9-4a1e-906a-54f5ba7808e6
-    m_ActionName: 'Player/Toggle Light[/Keyboard/e]'
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 647f1176-6d09-4351-9f51-7f763c63dae3
     m_ActionName: 'Ship/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
@@ -733,6 +717,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 46beedc1-159e-4034-a92f-f518627b164d
     m_ActionName: 'Ship/Toggle lights[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6296267834561494811}
+        m_TargetAssemblyTypeName: Assets.Scripts.PortableAreaLight, Assembly-CSharp
+        m_MethodName: ToggleLight_Action
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b997eef5-0d2c-42f3-a103-731148cd9fb0
+    m_ActionName: 'Global/Toggle player light[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8192916279135940297}
+        m_TargetAssemblyTypeName: Assets.Scripts.ShipController, Assembly-CSharp
+        m_MethodName: UpdateCameraRotation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 08bd722d-edfa-41c7-a18a-5f23fd78f169
+    m_ActionName: 'Ship/Look[/DualShock4GamepadHID/rightStick,/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -756,8 +772,15 @@ MonoBehaviour:
   PlayerCamera: {fileID: 5431804989087591233}
   CharController: {fileID: 9136471780635866816}
   MoveSupplier: {fileID: 88644433153264123}
+  Input: {fileID: 6014554554595494794}
+  InputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   MinCameraRotationDegrees: -85
   MaxCameraRotationDegrees: 85
+  CameraHeadBobMoveFrequency: 25
+  CameraHeadBobStrength: 0.03
+  HorizontalHeadBobFrequency: 25
+  HorizontalHeadBobStrength: 0.03
+  ReturnToStartValueSmoothing: 4
 --- !u!114 &1048448108034191308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,6 +824,10 @@ MonoBehaviour:
   ShipWheelTransform: {fileID: 0}
   ShipWheelRotateSpeed: 50
   PlayerCamera: {fileID: 5431804989087591233}
+  CameraMaxYRotRange: 50
+  CameraMaxXRotRange: 12
+  CameraSensitivity: 15
+  CameraTargetRotationSpeed: 500
   ShipRoot: {fileID: 0}
   ShipRBody: {fileID: 0}
   ShipSpeedModifier: 4.25
@@ -1306,7 +1333,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 247
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

@@ -660,7 +660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001508716}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.041812908, y: 4.64, z: 0}
   m_LocalScale: {x: 0.3984064, y: 4, z: 0.29239762}
   m_ConstrainProportionsScale: 0
@@ -1643,28 +1643,136 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1656405560}
     - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionId
+      value: 647f1176-6d09-4351-9f51-7f763c63dae3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
+      value: 9a390b96-ff98-48e2-ac81-4f83ef52aac5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: 055848d9-a8d8-4e5b-98d5-13bb3ee4a631
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionId
+      value: 80941d85-8645-458d-9b64-949e594200fa
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionId
+      value: 46beedc1-159e-4034-a92f-f518627b164d
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
+      value: b997eef5-0d2c-42f3-a103-731148cd9fb0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionName
+      value: 'Ship/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
+      value: 'Ship/Honk[/Keyboard/z]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: 'Global/Pause[/Keyboard/escape]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionName
+      value: 'Ship/Stop controlling[/Keyboard/q]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionName
+      value: 'Ship/Toggle lights[/Keyboard/f]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
+      value: 'Global/Toggle player light[/Keyboard/f]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 720394439}
     - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 720394439}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HONK
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StopControllingShip_Action
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleShipLights
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Assets.Scripts.ShipController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.ShipController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014554554595494794, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipDrag
@@ -1686,6 +1794,10 @@ PrefabInstance:
       propertyPath: ShipWheelTransform
       value: 
       objectReference: {fileID: 81310046}
+    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: CameraParentWhenPiloting
+      value: 
+      objectReference: {fileID: 1001508717}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipControlTransformPositionTemplate
       value: 

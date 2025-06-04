@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Toggle Light",
-                    "type": "Button",
-                    "id": "67c37df8-68d9-4a1e-906a-54f5ba7808e6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
@@ -387,28 +378,6 @@
                 },
                 {
                     "name": "",
-                    "id": "aa95423e-bdfa-4174-9e99-bdda67a30b20",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Toggle Light",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "82f111a2-44bf-4893-adad-b6c3a675e8d6",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Toggle Light",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4f4649ac-64a8-4a73-af11-b3faef356a4d",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -435,6 +404,15 @@
             "name": "Ship",
             "id": "6fc9186a-37d6-41fb-9d15-cd004a55836c",
             "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "08bd722d-edfa-41c7-a18a-5f23fd78f169",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
                 {
                     "name": "Move",
                     "type": "Value",
@@ -473,6 +451,39 @@
                 }
             ],
             "bindings": [
+                {
+                    "name": "",
+                    "id": "7ceb27fd-a234-4fa2-98e4-741bdcf55f38",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ca5b5c9-fcf0-440a-bfeb-b6adf89024e4",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;Touch",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "033cd279-7ac9-4c7d-b03a-d58a28f1fc15",
+                    "path": "<Joystick>/{Hatswitch}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
                 {
                     "name": "",
                     "id": "8549bb44-71df-41f5-97e3-77ec16c7792d",
@@ -630,7 +641,7 @@
                 {
                     "name": "",
                     "id": "1b4f0448-b953-4666-89d5-05d1729f8080",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -1168,6 +1179,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle player light",
+                    "type": "Button",
+                    "id": "b997eef5-0d2c-42f3-a103-731148cd9fb0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1179,6 +1199,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1aa4574-f2ad-456b-8596-74492ce88638",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Toggle player light",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -19,9 +19,14 @@ namespace Assets.Scripts {
         public float ShipWheelRotateSpeed;
 
         public Camera PlayerCamera;
+        public float CameraMaxYRotRange;
+        public float CameraMaxXRotRange;
+        public float CameraSensitivity;
+        public float CameraTargetRotationSpeed;
 
         public Transform ShipRoot;
         public CharacterController ShipRBody;
+        public Transform CameraParentWhenPiloting;
 
         public float ShipSpeedModifier = 10;
         public float ShipRotationSpeedModifier = 10;
@@ -52,7 +57,6 @@ namespace Assets.Scripts {
         }
 
         public void StopControllingShip() {
-            this.enabled = false;
             FPSController.enabled = true;
             this.InteractionDetector.enabled = true;
             Input.SwitchCurrentActionMap("Player");
@@ -60,11 +64,10 @@ namespace Assets.Scripts {
             PlayerCamera.transform.SetParent(transform);
 
             PlayerCamera.transform.DOLocalMove(OldPosition, SnapDuration);
-            PlayerCamera.transform.DOLocalRotateQuaternion(OldRotation, SnapDuration);
+            PlayerCamera.transform.DOLocalRotateQuaternion(OldRotation, SnapDuration).onComplete += () => this.enabled = false;
         }
 
         public void TakeControlOfShip() {
-            this.enabled = true;
             FPSController.enabled = false;
             this.InteractionDetector.enabled = false;
             //todo: zapisac lokalna pozycje kamery w obiekcie gracza i tam ja przywrocic wtedy, bo obecnie zle sie ta pozycja przywraca
@@ -72,10 +75,10 @@ namespace Assets.Scripts {
             OldRotation = PlayerCamera.transform.localRotation;
             Input.SwitchCurrentActionMap("Ship");
             transform.SetParent(ShipRoot.transform);
-            PlayerCamera.transform.SetParent(ShipRoot.transform);
+            PlayerCamera.transform.SetParent(CameraParentWhenPiloting);
 
             PlayerCamera.transform.DOMove(ShipControlTransformPositionTemplate.position, SnapDuration);
-            PlayerCamera.transform.DORotateQuaternion(ShipControlTransformPositionTemplate.rotation, SnapDuration);
+            PlayerCamera.transform.DORotateQuaternion(ShipControlTransformPositionTemplate.rotation, SnapDuration).onComplete += () => this.enabled = true;
         }
 
         private void FixedUpdate() {
@@ -128,6 +131,11 @@ namespace Assets.Scripts {
             HonkAudioSource.Play();
         }
 
+
+        private float xRotAcc = 0;
+        private float yRotAcc = 0;
+
+        private Vector2 CameraInput;
         public void ToggleShipLights(InputAction.CallbackContext ctx) {
             if (!ctx.performed)
                 return;
@@ -135,9 +143,27 @@ namespace Assets.Scripts {
             if (ShipLights == null || ShipLights.Length <= 0)
                 return;
 
+            //todo: dodać check czy gra jest spauzowana - jak tak to wyjść
+
             foreach (var light in ShipLights) {
                 light.gameObject.SetActive(!light.gameObject.activeSelf);
             }
+        }
+
+        public void UpdateCameraRotation(InputAction.CallbackContext ctx) {
+            if (ctx.canceled)
+                return;
+
+            CameraInput = ctx.ReadValue<Vector2>() * Time.deltaTime * CameraSensitivity;
+            xRotAcc += -CameraInput.y;
+            yRotAcc += CameraInput.x;
+
+            xRotAcc = Mathf.Clamp(xRotAcc, -CameraMaxXRotRange, CameraMaxXRotRange);
+            yRotAcc = Mathf.Clamp(yRotAcc, - CameraMaxYRotRange, CameraMaxYRotRange);
+        }
+
+        private void LateUpdate() {
+            PlayerCamera.transform.localRotation = Quaternion.RotateTowards(PlayerCamera.transform.localRotation, Quaternion.Euler(xRotAcc, yRotAcc, 0), Time.deltaTime * CameraTargetRotationSpeed);
         }
     }
 }

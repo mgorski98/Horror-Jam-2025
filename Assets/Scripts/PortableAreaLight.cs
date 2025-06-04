@@ -21,6 +21,8 @@ namespace Assets.Scripts {
             if (!ctx.performed)
                 return;
 
+            //todo: dodać sprawdzanie czy gra jest spauzowana, jak tak to wyjść
+
             //todo: zasymulować kaganek - użyć jointa, żeby ładnie dyndało może?
             IsLightActive = !IsLightActive;
             LampRoot.gameObject.SetActive(IsLightActive);
