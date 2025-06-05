@@ -1,25 +1,39 @@
-using Unity.VisualScripting;
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class FPSPlayerController : MonoBehaviour
 {
-    private InputAction MoveAction;
     public Vector3 MoveVector;
     public float MoveSpeed;
     public float CameraSensitivity;
     public Camera PlayerCamera;
     public CharacterController CharController;
 
-    [SerializeField]
-    private InputActionAsset Actions;
+    public InputActionSupplier MoveSupplier;
+    public PlayerInput Input;
+    public InputActionAsset InputActions;
 
     private float CurrentCameraRotationX;
     public float MinCameraRotationDegrees;
     public float MaxCameraRotationDegrees;
 
+    public float CameraHeadBobMoveFrequency;
+    public float CameraHeadBobStrength;
+    public float HorizontalHeadBobFrequency;
+    public float HorizontalHeadBobStrength;
+    public float ReturnToStartValueSmoothing = 4f;
+    private float HeadBobAccumulator;
+
+    private Vector3 StartLocalCameraPos;
+
     private void Awake() {
-        this.MoveAction = Actions.FindAction("Player/Move");
+        StartLocalCameraPos = PlayerCamera.transform.localPosition;
+    }
+
+    private void Start() {
+        var globalActions = InputActions.FindActionMap("Global");
+        globalActions.Enable(); //pauza, toggle œwiatla gracza, etc.
     }
 
     public void RotateCamera(InputAction.CallbackContext ctx) {
@@ -40,19 +54,37 @@ public class FPSPlayerController : MonoBehaviour
     }
 
     private void Update() {
-        var rawInputVector = MoveAction.ReadValue<Vector2>();
+        var rawInputVector = MoveSupplier.Action.ReadValue<Vector2>();
         MoveVector = transform.forward * rawInputVector.y + transform.right * rawInputVector.x;
     }
 
     private void FixedUpdate() {
-        CharController.Move(MoveVector * MoveSpeed * Time.deltaTime);
+        var vec = MoveVector;
+        if (CharController.isGrounded == false) {
+            vec.y = Physics.gravity.y * Time.fixedDeltaTime;
+        }
+        CharController.Move(vec * MoveSpeed * Time.fixedDeltaTime);
     }
 
     private void LateUpdate() {
-        DoHeadBob();
+        if (MoveVector != Vector3.zero && CharController.isGrounded) {
+            DoHeadBob();
+            HeadBobAccumulator += Time.deltaTime;
+        }
+        else {
+            ReturnHeadBobToDefaultPos();
+        }
     }
 
     private void DoHeadBob() {
+        var pos = default(Vector3);
+        pos.x += Mathf.Cos(HeadBobAccumulator * HorizontalHeadBobFrequency / 2) * HorizontalHeadBobStrength * 2;
+        pos.y += Mathf.Sin(HeadBobAccumulator * CameraHeadBobMoveFrequency) * CameraHeadBobStrength;
+        PlayerCamera.transform.localPosition = pos + this.StartLocalCameraPos;
+    }
 
+    private Vector3 smoothVec;
+    private void ReturnHeadBobToDefaultPos() {
+        PlayerCamera.transform.localPosition = Vector3.SmoothDamp(PlayerCamera.transform.localPosition, StartLocalCameraPos, ref smoothVec, ReturnToStartValueSmoothing);
     }
 }
