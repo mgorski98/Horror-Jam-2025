@@ -113,7 +113,7 @@ namespace Assets.Scripts {
 
             CurrentTurnSpeed = Mathf.Clamp(CurrentTurnSpeed, -MaxRotationSpeed, MaxRotationSpeed);
 
-            var boatDirection = PlayerCamera.transform.forward;
+            var boatDirection = CameraParentWhenPiloting.transform.forward;
             ShipRBody.Move(CurrentSpeed * Time.fixedDeltaTime * boatDirection);
             ShipRBody.transform.rotation = (ShipRBody.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
 
