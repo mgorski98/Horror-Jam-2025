@@ -43,6 +43,9 @@ namespace Assets.Scripts {
 
         public Light[] ShipLights;
 
+        public float ShipHealth;
+        public float MaxShipHealth;
+
         //na potrzeby wyliczania obrażeń od kolizji
         public Vector3 VelocityVector => ShipRBody.transform.forward * CurrentSpeed;
 

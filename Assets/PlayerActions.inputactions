@@ -1214,6 +1214,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Mining",
+            "id": "a5f1f55c-002d-4f9b-8655-de2fa576e703",
+            "actions": [
+                {
+                    "name": "Hit",
+                    "type": "Button",
+                    "id": "7b13cbeb-29c2-4a6b-b131-2e6227c144b0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "5981e42e-0837-427b-b236-4a606348ffed",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d3cec299-073d-4bfe-bb0a-921cbab1fd8d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Hit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5762be5e-56e8-4661-881c-b143740a288c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -414,6 +414,8 @@ GameObject:
   - component: {fileID: 1048448108034191308}
   - component: {fileID: 8192916279135940297}
   - component: {fileID: 6296267834561494811}
+  - component: {fileID: 8373652025598732742}
+  - component: {fileID: 8040651555066970506}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -749,6 +751,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 08bd722d-edfa-41c7-a18a-5f23fd78f169
     m_ActionName: 'Ship/Look[/DualShock4GamepadHID/rightStick,/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8373652025598732742}
+        m_TargetAssemblyTypeName: Assets.Scripts.MiningMinigameController, Assembly-CSharp
+        m_MethodName: TryHitSaltDeposit_Action
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7b13cbeb-29c2-4a6b-b131-2e6227c144b0
+    m_ActionName: 'Mining/Hit[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8373652025598732742}
+        m_TargetAssemblyTypeName: Assets.Scripts.MiningMinigameController, Assembly-CSharp
+        m_MethodName: QuitMining_Action
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5981e42e-0837-427b-b236-4a606348ffed
+    m_ActionName: 'Mining/Quit[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -793,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee03777e6d166e644b2770b79c70d7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionRange: 5
+  InteractionRange: 1.75
   InteractablesMask:
     serializedVersion: 2
     m_Bits: 64
@@ -830,6 +864,7 @@ MonoBehaviour:
   CameraTargetRotationSpeed: 500
   ShipRoot: {fileID: 0}
   ShipRBody: {fileID: 0}
+  CameraParentWhenPiloting: {fileID: 0}
   ShipSpeedModifier: 4.25
   ShipRotationSpeedModifier: 2.5
   MaxSpeed: 6
@@ -842,6 +877,8 @@ MonoBehaviour:
   HonkAudioSource: {fileID: 8199993163141520158}
   Honks: []
   ShipLights: []
+  ShipHealth: 0
+  MaxShipHealth: 0
 --- !u!114 &6296267834561494811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,6 +895,78 @@ MonoBehaviour:
   AreaLight: {fileID: 7457217715269084157}
   LampRoot: {fileID: 1469424968282717982}
   IsLightActive: 0
+--- !u!114 &8373652025598732742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568179579492382839}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40846ac1b7e5fa948acbf88ace38a3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MiningStrength: 15
+  Input: {fileID: 6014554554595494794}
+  SnapDuration: 0.2
+  FailedHitStopDuration: 0.5
+  IndicatorMoveSpeed: 250
+  MinigameFadeInDuration: 0.2
+  MiningProgressDecaySpeed: 3.33
+  PlayerCamera: {fileID: 5431804989087591233}
+  FPSController: {fileID: 1735449980591104804}
+  InteractDetector: {fileID: 1048448108034191308}
+  SaltStorage: {fileID: 8040651555066970506}
+  MainBarTransform: {fileID: 0}
+  IndicatorSpawnPosition: {fileID: 0}
+  HitDetectionTransform: {fileID: 0}
+  IndicatorMoveDirection: {x: -1, y: 0}
+  SaltCrystalIndicatorPrefab: {fileID: 5041734361641230510, guid: e590f5cb7f2a4924a8f567f1103bfe59, type: 3}
+  MiningProgressBar: {fileID: 0}
+  MinigameCanvasGroup: {fileID: 0}
+  SpawnIntervals:
+  - 0.66
+  - 0.66
+  - 0.66
+  - 0.66
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 0.66
+  - 0.44
+  - 0.44
+  - 0.44
+  - 0.44
+  MiningProgress:
+    OnValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &8040651555066970506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568179579492382839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f08382da2c73ad4cb140544346e5e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentStoredSalt:
+    OnValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  MaxSaltStorage: 30000
+  MaxSaltEncumbranceSlowDown: 10
+  BarometerArmRotationTransform: {fileID: 0}
+  ZeroBarometerRotation: {x: 0, y: -130, z: 0}
+  MaxBarometerRotation: {x: 0, y: 130, z: 0}
+  BarometerPointerOscillationStrength: 0.1
 --- !u!1 &4644259470461842488
 GameObject:
   m_ObjectHideFlags: 0
