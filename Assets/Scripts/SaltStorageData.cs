@@ -30,7 +30,7 @@ namespace Assets.Scripts {
         public Vector3 MaxBarometerRotation;
         public float BarometerPointerOscillationStrength = 0.1f;
 
-        //todo: backgorund tego można będzie zrobić w tym shaderze: https://www.youtube.com/watch?v=V5h2ClMUguQ
+        //todo: backgorund tego można będzie zrobić w tym shaderze: https://www.youtube.com/watch?v=V5h2ClMUguQ , używając sprite renderera
 
         private void Awake() {
             CurrentStoredSalt.OnValueChanged.AddListener((oldval, newval) => {

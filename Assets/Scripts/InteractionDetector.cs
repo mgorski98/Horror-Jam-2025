@@ -19,7 +19,7 @@ public class InteractionDetector : MonoBehaviour
 
     [ColorUsage(true, true)]
     public Color TintColor;
-    private Color PreviousDefaultRendererColor;
+    private Color[] PreviousDefaultRendererColors = new Color[150];
 
     private void Awake() {
         this.InteractAction = Actions.FindAction("Player/Interact");
@@ -41,9 +41,7 @@ public class InteractionDetector : MonoBehaviour
                     } else {
                         InteractionText.text = interactable.GetInteractionName();
                     }
-                    var renderer = interactable.GetComponentInChildren<Renderer>();
-                    PreviousDefaultRendererColor = renderer.material.color;
-                    renderer.material.color = TintColor;
+                    UpdateInteractableMaterialColors(interactable);
                 }
             }
             CurrentInteractable = interactable;
@@ -53,9 +51,24 @@ public class InteractionDetector : MonoBehaviour
         }
     }
 
+    private void UpdateInteractableMaterialColors(InteractableObject obj) {
+        var renderers = obj.GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; ++i) {
+            PreviousDefaultRendererColors[i] = renderers[i].material.color;
+            renderers[i].material.color = TintColor;
+        }
+    }
+
+    private void ClearInteractableMaterialColors(InteractableObject obj) {
+        var renderers = obj.GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; ++i) {
+            renderers[i].material.color = PreviousDefaultRendererColors[i];
+        }
+    }
+
     public void ClearInteractData() {
         if (CurrentInteractable != null) {
-            CurrentInteractable.GetComponentInChildren<Renderer>().material.color = PreviousDefaultRendererColor;
+            ClearInteractableMaterialColors(CurrentInteractable);
             CurrentInteractable = null;
         }
         if (InteractionText != null)
