@@ -100,13 +100,11 @@ namespace Assets.Scripts {
             //TODO: ustawić rotację w kierunku od wykrytego spotu do depozytu - pominąć y w wektorze kierunku (ustawić na 0)
             PlayerCamera.transform.DORotateQuaternion(directionToDeposit, SnapDuration).onComplete += () => {
                 this.enabled = true;
-                //todo: ustawić zmiany w UI (progress w wydobywaniu, wyczyścić indicatory, etc.)
                 MiningProgressBar.fillAmount = 0;
                 Indicators.ForEach(i => Destroy(i));
                 Indicators.Clear();
 
                 MinigameCanvasGroup.DOFade(1f, MinigameFadeInDuration).onComplete += () => {
-                    //todo: init spawning
                     SpawnSaltIndicatorTimer = SpawnIntervals[UnityEngine.Random.Range(0, SpawnIntervals.Length)];
                 };
             };
@@ -172,9 +170,6 @@ namespace Assets.Scripts {
 
         private void FinishMining() {
             //wygaszamy ui od minigry i jak się wygasi, to przywracamy starą pozycję gracza sprzed miningu
-            //todo: dodać wartość depozytu do salt storage
-            //todo: ustawić IsDepleted w depozycie na true
-            //todo: spowolnić statek
             AddSalt();
             MinigameCanvasGroup.DOFade(0f, SnapDuration).onComplete += () => {
                 PlayerCamera.transform.DOMove(OldPosition, SnapDuration);
@@ -210,7 +205,6 @@ namespace Assets.Scripts {
                 //tutaj można użyć tego systemu jak nie trafimy w element na pasku
                 Debug.Log("BOOHOO, MISSED");
             } else {
-                //trafione - dodaj progress, zaktualizuj pasek postępu i skalę transformów w kryształach soli
                 MiningProgress.Value += MiningStrength;
                 Debug.Log("YEEHAW, HIT");
                 Indicators.Remove(indicator.gameObject);

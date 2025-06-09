@@ -432,7 +432,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Stop controlling",
+                    "name": "Stop controlling ship",
                     "type": "Button",
                     "id": "80941d85-8645-458d-9b64-949e594200fa",
                     "expectedControlType": "",
@@ -634,7 +634,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Stop controlling",
+                    "action": "Stop controlling ship",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1220,7 +1220,7 @@
             "id": "a5f1f55c-002d-4f9b-8655-de2fa576e703",
             "actions": [
                 {
-                    "name": "Hit",
+                    "name": "Hit deposit",
                     "type": "Button",
                     "id": "7b13cbeb-29c2-4a6b-b131-2e6227c144b0",
                     "expectedControlType": "",
@@ -1229,7 +1229,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Quit",
+                    "name": "Quit mining",
                     "type": "Button",
                     "id": "5981e42e-0837-427b-b236-4a606348ffed",
                     "expectedControlType": "",
@@ -1246,7 +1246,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Hit",
+                    "action": "Hit deposit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1257,7 +1257,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Quit",
+                    "action": "Quit mining",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

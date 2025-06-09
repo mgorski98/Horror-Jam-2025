@@ -6,6 +6,7 @@ public class FPSPlayerController : MonoBehaviour
 {
     public Vector3 MoveVector;
     public float MoveSpeed;
+    public float SprintSpeed;
     public float CameraSensitivity;
     public Camera PlayerCamera;
     public CharacterController CharController;
@@ -27,6 +28,8 @@ public class FPSPlayerController : MonoBehaviour
 
     private Vector3 StartLocalCameraPos;
 
+    private bool IsSprinting = false;
+
     private void Awake() {
         StartLocalCameraPos = PlayerCamera.transform.localPosition;
     }
@@ -47,6 +50,13 @@ public class FPSPlayerController : MonoBehaviour
         PlayerCamera.transform.rotation = Quaternion.Euler(CurrentCameraRotationX, rotY, 0f);
     }
 
+    public void DoSprint(InputAction.CallbackContext ctx) {
+        if (ctx.started)
+            IsSprinting = true;
+        if (ctx.canceled)
+            IsSprinting = false;
+    }
+
     private float ClampAngle(float angle, float min, float max) {
         if (angle < -360f) angle += 360f;
         if (angle > 360f) angle -= 360f;
@@ -63,7 +73,7 @@ public class FPSPlayerController : MonoBehaviour
         if (CharController.isGrounded == false) {
             vec.y = Physics.gravity.y * Time.fixedDeltaTime;
         }
-        CharController.Move(vec * MoveSpeed * Time.fixedDeltaTime);
+        CharController.Move((IsSprinting ? SprintSpeed : MoveSpeed) * Time.fixedDeltaTime * vec);
     }
 
     private void LateUpdate() {
