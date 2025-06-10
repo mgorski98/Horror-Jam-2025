@@ -396,6 +396,135 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &3551850624997883235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3360677101964218395}
+  - component: {fileID: 8027120600228628195}
+  m_Layer: 0
+  m_Name: Mining
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3360677101964218395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551850624997883235}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3821609460929578464}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &8027120600228628195
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551850624997883235}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 8e5cfb90ab19b8348a00e47568ca3cda, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4568179579492382839
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +568,7 @@ Transform:
   - {fileID: 2049395992973227045}
   - {fileID: 2018733425720740310}
   - {fileID: 5773281425586870394}
+  - {fileID: 3360677101964218395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &68501738545928222
@@ -843,7 +973,7 @@ MonoBehaviour:
   InteractionRange: 1.75
   InteractablesMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   CurrentInteractable: {fileID: 0}
   CheckOrigin: {fileID: 2049395992973227045}
   CheckDirectionSupplier: {fileID: 2049395992973227045}
@@ -867,6 +997,7 @@ MonoBehaviour:
   FPSController: {fileID: 1735449980591104804}
   InteractionDetector: {fileID: 1048448108034191308}
   Input: {fileID: 6014554554595494794}
+  DumpButton: {fileID: 0}
   MoveSupplier: {fileID: 2698881078001289643}
   ShipWheelTransform: {fileID: 0}
   ShipWheelRotateSpeed: 50
@@ -894,6 +1025,7 @@ MonoBehaviour:
   - {fileID: 0}
   ShipHealth: 100
   MaxShipHealth: 100
+  IsNearSaltDepositStation: 0
 --- !u!114 &6296267834561494811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,6 +1089,7 @@ MonoBehaviour:
   - 0.44
   - 0.44
   MiningProgress:
+    _value: 0
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []
@@ -973,6 +1106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentStoredSalt:
+    _value: 0
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []

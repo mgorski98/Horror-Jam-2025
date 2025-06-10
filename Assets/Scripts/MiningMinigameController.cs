@@ -13,6 +13,10 @@ namespace Assets.Scripts {
     public class MiningMinigameController : MonoBehaviour {
         private SaltDeposit Deposit;
 
+        public AudioSource MiningSoundsAudioSource;
+        public AudioClip[] MiningClips;
+        public AudioClip[] FailedHitClips;
+
         [SerializeField, Tooltip("how much percentage of a rock to chip with each hit")]
         private float MiningStrength;
         [SerializeField]
@@ -205,7 +209,9 @@ namespace Assets.Scripts {
                 //tutaj można użyć tego systemu jak nie trafimy w element na pasku
                 Debug.Log("BOOHOO, MISSED");
             } else {
+                
                 MiningProgress.Value += MiningStrength;
+                MiningSoundsAudioSource.PlayOneShot(MiningClips[UnityEngine.Random.Range(0, MiningClips.Length)]);
                 Debug.Log("YEEHAW, HIT");
                 Indicators.Remove(indicator.gameObject);
                 Destroy(indicator.gameObject);

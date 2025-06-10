@@ -27,6 +27,7 @@ namespace Assets.Scripts {
         public float CameraTargetRotationSpeed;
 
         public Transform ShipRoot;
+        public Transform ShipBase;
         public CharacterController ShipRBody;
         public Transform CameraParentWhenPiloting;
 
@@ -51,7 +52,8 @@ namespace Assets.Scripts {
         public bool IsNearSaltDepositStation = false;
 
         //na potrzeby wyliczania obrażeń od kolizji
-        public Vector3 VelocityVector => ShipRBody.transform.forward * CurrentSpeed;
+        public Vector3 VelocityVector => CameraParentWhenPiloting.transform.forward * CurrentSpeed;
+        
 
         public void StopControllingShip_Action(InputAction.CallbackContext ctx) {
             if (!ctx.performed)
@@ -67,7 +69,7 @@ namespace Assets.Scripts {
             FPSController.enabled = true;
             this.InteractionDetector.enabled = true;
             Input.SwitchCurrentActionMap("Player");
-            transform.SetParent(null);
+            transform.SetParent(ShipBase);
             PlayerCamera.transform.SetParent(transform);
 
             PlayerCamera.transform.DOLocalMove(OldPosition, SnapDuration);
