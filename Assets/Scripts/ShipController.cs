@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using Assets.Scripts.Interactables;
 
 namespace Assets.Scripts {
     public class ShipController : MonoBehaviour {
@@ -12,6 +13,7 @@ namespace Assets.Scripts {
         public FPSPlayerController FPSController;
         public InteractionDetector InteractionDetector;
         public PlayerInput Input;
+        public SaltDumpButton DumpButton;
 
         public InputActionSupplier MoveSupplier;
 
@@ -25,6 +27,7 @@ namespace Assets.Scripts {
         public float CameraTargetRotationSpeed;
 
         public Transform ShipRoot;
+        public Transform ShipBase;
         public CharacterController ShipRBody;
         public Transform CameraParentWhenPiloting;
 
@@ -43,8 +46,14 @@ namespace Assets.Scripts {
 
         public Light[] ShipLights;
 
+        public float ShipHealth;
+        public float MaxShipHealth;
+
+        public bool IsNearSaltDepositStation = false;
+
         //na potrzeby wyliczania obrażeń od kolizji
-        public Vector3 VelocityVector => ShipRBody.transform.forward * CurrentSpeed;
+        public Vector3 VelocityVector => CameraParentWhenPiloting.transform.forward * CurrentSpeed;
+        
 
         public void StopControllingShip_Action(InputAction.CallbackContext ctx) {
             if (!ctx.performed)
@@ -60,7 +69,7 @@ namespace Assets.Scripts {
             FPSController.enabled = true;
             this.InteractionDetector.enabled = true;
             Input.SwitchCurrentActionMap("Player");
-            transform.SetParent(null);
+            transform.SetParent(ShipBase);
             PlayerCamera.transform.SetParent(transform);
 
             PlayerCamera.transform.DOLocalMove(OldPosition, SnapDuration);
@@ -100,7 +109,6 @@ namespace Assets.Scripts {
             var additionalMultiplier = 1f;
             if ((CurrentTurnSpeed < 0 && shipRotation > 0) || (CurrentTurnSpeed > 0 && shipRotation < 0)) {
                 additionalMultiplier = 2f;
-                Debug.Log("Siema eniu");
             }
             CurrentTurnSpeed += shipRotation * additionalMultiplier * Time.fixedDeltaTime * ShipRotationSpeedModifier;
             if (Mathf.Approximately(0f, shipRotation)) {
@@ -154,7 +162,7 @@ namespace Assets.Scripts {
             if (ctx.canceled)
                 return;
 
-            CameraInput = ctx.ReadValue<Vector2>() * Time.deltaTime * CameraSensitivity;
+            CameraInput = CameraSensitivity * Time.deltaTime * ctx.ReadValue<Vector2>();
             xRotAcc += -CameraInput.y;
             yRotAcc += CameraInput.x;
 
