@@ -889,9 +889,11 @@ MonoBehaviour:
   CurrentTurnSpeed: 0
   HonkAudioSource: {fileID: 8199993163141520158}
   Honks: []
-  ShipLights: []
-  ShipHealth: 0
-  MaxShipHealth: 0
+  ShipLights:
+  - {fileID: 0}
+  - {fileID: 0}
+  ShipHealth: 100
+  MaxShipHealth: 100
 --- !u!114 &6296267834561494811
 MonoBehaviour:
   m_ObjectHideFlags: 0

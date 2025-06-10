@@ -1,4 +1,5 @@
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,7 +31,7 @@ public class InteractionDetector : MonoBehaviour
     }
 
     private void Update() {
-        if (Physics.Raycast(CheckOrigin.position, CheckDirectionSupplier.forward, out RaycastHit hit, InteractionRange, InteractablesMask)) {
+        if (Physics.Raycast(CheckOrigin.position, CheckDirectionSupplier.forward, out RaycastHit hit, InteractionRange, InteractablesMask, QueryTriggerInteraction.Collide)) {
             var interactable = hit.transform.gameObject.GetComponent<InteractableObject>();
             if (interactable == null) {
                 InteractionText.text = string.Empty;
@@ -52,7 +53,7 @@ public class InteractionDetector : MonoBehaviour
     }
 
     private void UpdateInteractableMaterialColors(InteractableObject obj) {
-        var renderers = obj.GetComponentsInChildren<Renderer>();
+        var renderers = obj.GetComponentsInChildren<Renderer>().Where(r => r.TryGetComponent(out TMP_Text _) == false).ToArray();
         for (int i = 0; i < renderers.Length; ++i) {
             PreviousDefaultRendererColors[i] = renderers[i].material.color;
             renderers[i].material.color = TintColor;
@@ -60,7 +61,7 @@ public class InteractionDetector : MonoBehaviour
     }
 
     private void ClearInteractableMaterialColors(InteractableObject obj) {
-        var renderers = obj.GetComponentsInChildren<Renderer>();
+        var renderers = obj.GetComponentsInChildren<Renderer>().Where(r => r.TryGetComponent(out TMP_Text _) == false).ToArray();
         for (int i = 0; i < renderers.Length; ++i) {
             renderers[i].material.color = PreviousDefaultRendererColors[i];
         }

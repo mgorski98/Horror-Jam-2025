@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SaltDeposit : InteractableObject
 {
+    //todo: trzeba bedzie dodac w jakims game managerze check, zeby upewnic sie ze jest wystarczajaco soli na mapie - docelowa wartosc spawnu niech bedzie ustawiona w generatorze/managerze
     [Tooltip("How much salt there is inside, in grams")]
     public int SaltValue = 0; //how much salt there is, in grams
     public Transform[] SaltCrystalsToShrink;
