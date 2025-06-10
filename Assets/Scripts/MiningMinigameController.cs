@@ -211,7 +211,8 @@ namespace Assets.Scripts {
             } else {
                 
                 MiningProgress.Value += MiningStrength;
-                MiningSoundsAudioSource.PlayOneShot(MiningClips[UnityEngine.Random.Range(0, MiningClips.Length)]);
+                if (MiningSoundsAudioSource != null && MiningClips.Length > 0)
+                    MiningSoundsAudioSource.PlayOneShot(MiningClips[UnityEngine.Random.Range(0, MiningClips.Length)]);
                 Debug.Log("YEEHAW, HIT");
                 Indicators.Remove(indicator.gameObject);
                 Destroy(indicator.gameObject);
