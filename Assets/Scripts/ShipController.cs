@@ -91,6 +91,8 @@ namespace Assets.Scripts {
         }
 
         private void FixedUpdate() {
+            //todo: trzeba będzie ogarnąć jak tą symulację robić bez wyłączania skryptu, żeby np. kolizje się obliczały jak jesteśmy na statku
+            //może wystarczy po prostu flaga? i niewyłączanie shipcontrollera?
             var input = MoveSupplier.Action.ReadValue<Vector2>();
             var shipRotation = input.x;
             var shipAcceleration = input.y;
