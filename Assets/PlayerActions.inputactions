@@ -448,6 +448,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Dock",
+                    "type": "Button",
+                    "id": "99a1b8de-84b6-4c67-b872-1a35e2f01d7b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -646,6 +655,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Toggle lights",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71cc364f-eece-4aa7-9f65-ea35046d63d3",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Dock",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

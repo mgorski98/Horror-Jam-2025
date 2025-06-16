@@ -925,6 +925,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5981e42e-0837-427b-b236-4a606348ffed
     m_ActionName: 'Mining/Quit[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8192916279135940297}
+        m_TargetAssemblyTypeName: Assets.Scripts.ShipController, Assembly-CSharp
+        m_MethodName: TryDocking_Action
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 99a1b8de-84b6-4c67-b872-1a35e2f01d7b
+    m_ActionName: 'Ship/Dock[/Keyboard/x]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -948,6 +964,7 @@ MonoBehaviour:
   CameraSensitivity: 3
   PlayerCamera: {fileID: 5431804989087591233}
   CharController: {fileID: 9136471780635866816}
+  PlayerShipParent: {fileID: 0}
   MoveSupplier: {fileID: 88644433153264123}
   Input: {fileID: 6014554554595494794}
   InputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
@@ -1007,6 +1024,7 @@ MonoBehaviour:
   CameraSensitivity: 15
   CameraTargetRotationSpeed: 500
   ShipRoot: {fileID: 0}
+  ShipBase: {fileID: 0}
   ShipRBody: {fileID: 0}
   CameraParentWhenPiloting: {fileID: 0}
   ShipSpeedModifier: 4.25
@@ -1023,7 +1041,11 @@ MonoBehaviour:
   ShipLights:
   - {fileID: 0}
   - {fileID: 0}
-  ShipHealth: 100
+  ShipHealth:
+    _value: 0
+    OnValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
   MaxShipHealth: 100
   IsNearSaltDepositStation: 0
 --- !u!114 &6296267834561494811
@@ -1054,6 +1076,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40846ac1b7e5fa948acbf88ace38a3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MiningSoundsAudioSource: {fileID: 0}
+  MiningClips: []
+  FailedHitClips: []
   MiningStrength: 15
   Input: {fileID: 6014554554595494794}
   SnapDuration: 0.2

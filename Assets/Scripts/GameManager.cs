@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using Assets.Utils;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,10 @@ public class GameManager : MonoBehaviour
     public ObservableValue<bool> IsPaused = new(false);
 
     public PauseMenu PauseMenu;
+
+    public float GameOverFadeDuration = 1.5f;
+    public CanvasGroup FadeOutCGroup;
+    public CanvasGroup GameOverMenuCGroup;
 
     private void Awake() {
         if (_instance == null)
@@ -29,7 +34,7 @@ public class GameManager : MonoBehaviour
     private void Update() {
 #if UNITY_EDITOR
         if (Keyboard.current.zKey.wasPressedThisFrame) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            QuickRestartScene();
         }
 #endif
     }
@@ -43,5 +48,15 @@ public class GameManager : MonoBehaviour
 
     public void TogglePause() {
         IsPaused.Value = !IsPaused.Value;
+    }
+
+    public void DoGameOver() {
+        FadeOutCGroup.DOFade(1, GameOverFadeDuration).SetUpdate(true).onComplete += () => {
+            GameOverMenuCGroup.DOFade(1, GameOverFadeDuration).SetUpdate(true);
+        };
+    }
+
+    public void QuickRestartScene() { 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

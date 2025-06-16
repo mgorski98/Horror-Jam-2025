@@ -180,6 +180,7 @@ MonoBehaviour:
     - Honk
     - Stop controlling ship
     - Toggle lights
+    - Dock
   BindingsText: {fileID: 5148236464920322457}
   GlobalActionMapName: Global
   GlobalActionsToDisplay:
