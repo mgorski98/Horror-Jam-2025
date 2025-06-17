@@ -33,6 +33,7 @@ Shader "Custom/Waves"
         fixed4 _Color;
         float _Speed;
         float4 _WaveA, _WaveB, _WaveC;
+        float _CustomTime;
 
         float3 GerstnerWave (float4 wave, float3 p, inout float3 tangent, inout float3 binormal)
         {
@@ -41,7 +42,7 @@ Shader "Custom/Waves"
             float k = 2 * UNITY_PI / wavelength;
             float c = sqrt(9.8 / k);
             float2 d = normalize(wave.xy);
-            float f = k * (dot(d, p.xz) - c * _Speed * _Time.y);
+            float f = k * (dot(d, p.xz) - c * _Speed * _CustomTime);
             float a = steepness / k;
 
             tangent += float3(
@@ -73,8 +74,8 @@ Shader "Custom/Waves"
             float3 p = gridPoint;
             
             p += GerstnerWave(_WaveA, gridPoint, tangent, binormal);
-            p += GerstnerWave(_WaveB, gridPoint, tangent, binormal);
-            p += GerstnerWave(_WaveC, gridPoint, tangent, binormal);
+            //p += GerstnerWave(_WaveB, gridPoint, tangent, binormal);
+            //p += GerstnerWave(_WaveC, gridPoint, tangent, binormal);
             
             float3 normal = normalize(cross(binormal, tangent));
             vertexData.vertex.xyz = mul(unity_WorldToObject, float4(p.xyz, 1.0));
