@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
     public float GameOverFadeDuration = 1.5f;
     public CanvasGroup FadeOutCGroup;
     public CanvasGroup GameOverMenuCGroup;
+    public GameObject GameOverMenuObject;
+
+    public GameObject Player;
+
+    public string MenuSceneName;
 
     private void Awake() {
         if (_instance == null)
@@ -36,7 +41,11 @@ public class GameManager : MonoBehaviour
         if (Keyboard.current.zKey.wasPressedThisFrame) {
             QuickRestartScene();
         }
+        if (Keyboard.current.backspaceKey.wasPressedThisFrame) {
+            DoGameOver();
+        }
 #endif
+
     }
 
     public void TogglePause_Action(InputAction.CallbackContext ctx) {
@@ -51,9 +60,16 @@ public class GameManager : MonoBehaviour
     }
 
     public void DoGameOver() {
+        GameOverMenuObject.SetActive(true);
         FadeOutCGroup.DOFade(1, GameOverFadeDuration).SetUpdate(true).onComplete += () => {
-            GameOverMenuCGroup.DOFade(1, GameOverFadeDuration).SetUpdate(true);
+            GameOverMenuCGroup.DOFade(1, GameOverFadeDuration).SetUpdate(true).onComplete += PerformGameOverCleanup;
         };
+    }
+
+    public void QuitToMenu() => SceneManager.LoadScene(MenuSceneName);
+
+    private void PerformGameOverCleanup() {
+        Player.SetActive(false);
     }
 
     public void QuickRestartScene() { 

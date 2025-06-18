@@ -34,6 +34,8 @@ namespace Assets.Scripts {
         }
 
         private void Update() {
+            if (Input == null || Input.currentActionMap == null)
+                return;
             if (Input.currentActionMap.name != CurrentActionMapName) {
                 CurrentActionMapName = Input.currentActionMap.name;
                 UpdateUIBindingDisplay();

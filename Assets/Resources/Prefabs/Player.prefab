@@ -1042,11 +1042,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ShipHealth:
-    _value: 0
+    _value: 5
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []
-  MaxShipHealth: 100
+  MaxShipHealth: 5
   IsNearSaltDepositStation: 0
 --- !u!114 &6296267834561494811
 MonoBehaviour:

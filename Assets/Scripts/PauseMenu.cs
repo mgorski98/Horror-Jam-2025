@@ -8,8 +8,6 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts {
     public class PauseMenu : MonoBehaviour {
-        public string MenuSceneName;
-
         public void Toggle(bool active) => this.gameObject.SetActive(active);
 
         public void Resume() {
@@ -17,7 +15,7 @@ namespace Assets.Scripts {
         }
 
         public void ExitToMenu() {
-            SceneManager.LoadScene(MenuSceneName);
+            GameManager.Instance.QuitToMenu();
         }
 
         public void ExitToDesktop() {
