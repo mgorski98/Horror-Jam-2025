@@ -6,11 +6,11 @@ Shader "Custom/Waves"
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
-        _Speed ("Speed", Float) = 1.0
 
-        _WaveA ("Wave A (dir, steepness, wavelength)", Vector) = (1, 0, 0.5, 10)
-        _WaveB ("Wave B (dir, steepness, wavelength)", Vector) = (0, 1, 0.25, 20)
-        _WaveC ("Wave C", Vector) = (1,1,0.15,10)
+        //_WaveA ("Wave A (dir, steepness, wavelength)", Vector) = (1, 0, 0.5, 10)
+        //_WaveB ("Wave B (dir, steepness, wavelength)", Vector) = (0, 1, 0.25, 20)
+        //_WaveC ("Wave C", Vector) = (1,1,0.15,10)
+        //_Speed ("Speed", Float) = 1.0
     }
     SubShader
     {
@@ -74,8 +74,8 @@ Shader "Custom/Waves"
             float3 p = gridPoint;
             
             p += GerstnerWave(_WaveA, gridPoint, tangent, binormal);
-            //p += GerstnerWave(_WaveB, gridPoint, tangent, binormal);
-            //p += GerstnerWave(_WaveC, gridPoint, tangent, binormal);
+            p += GerstnerWave(_WaveB, gridPoint, tangent, binormal);
+            p += GerstnerWave(_WaveC, gridPoint, tangent, binormal);
             
             float3 normal = normalize(cross(binormal, tangent));
             vertexData.vertex.xyz = mul(unity_WorldToObject, float4(p.xyz, 1.0));
