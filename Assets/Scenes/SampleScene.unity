@@ -2941,7 +2941,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 679812939}
-  - component: {fileID: 679812940}
   m_Layer: 7
   m_Name: SHIPMODELS
   m_TagString: Ship
@@ -2965,27 +2964,6 @@ Transform:
   - {fileID: 466673918}
   m_Father: {fileID: 2058152546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &679812940
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679812938}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.402793, y: 1, z: 2.602247}
-  m_Center: {x: 0.4559803, y: 0, z: -0.03678763}
 --- !u!114 &720394439 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
@@ -7123,10 +7101,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2058152546}
-  - component: {fileID: 2058152547}
   - component: {fileID: 2058152549}
   - component: {fileID: 2058152550}
   - component: {fileID: 2058152551}
+  - component: {fileID: 2058152552}
   m_Layer: 7
   m_Name: BasicShip
   m_TagString: Ship
@@ -7151,31 +7129,6 @@ Transform:
   - {fileID: 679812939}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &2058152547
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058152545}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 0
-  m_Radius: 1.58
-  m_SlopeLimit: 0
-  m_StepOffset: 0
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0.59, y: -0.77, z: 0}
 --- !u!114 &2058152549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7221,12 +7174,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 3.436307, y: 1, z: 2.58}
   m_Center: {x: 0.47624254, y: 0, z: 0}
+--- !u!54 &2058152552
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058152545}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 2
+  m_AngularDrag: 2.5
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!1 &2108932071
 GameObject:
   m_ObjectHideFlags: 0
@@ -7625,7 +7605,7 @@ PrefabInstance:
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipRBody
       value: 
-      objectReference: {fileID: 2058152547}
+      objectReference: {fileID: 0}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: DumpButton
       value: 
@@ -7638,6 +7618,10 @@ PrefabInstance:
       propertyPath: ShipWheelTransform
       value: 
       objectReference: {fileID: 81310046}
+    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: ShipMovementController
+      value: 
+      objectReference: {fileID: 2058152552}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipWaveSimulationRoot
       value: 
@@ -7654,6 +7638,10 @@ PrefabInstance:
       propertyPath: 'ShipLights.Array.data[1]'
       value: 
       objectReference: {fileID: 1196358880}
+    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: ShipRotationSpeedModifier
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: ShipControlTransformPositionTemplate
       value: 

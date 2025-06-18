@@ -20,6 +20,7 @@ namespace Assets.Scripts {
         public InteractionDetector InteractionDetector;
         public PlayerInput Input;
         public SaltDumpButton DumpButton;
+        public CharacterController PlayerController;
 
         public InputActionSupplier MoveSupplier;
 
@@ -34,6 +35,7 @@ namespace Assets.Scripts {
 
         public Transform ShipRoot;
         public Transform ShipBase;
+        public Rigidbody ShipMovementController;
         public CharacterController ShipRBody;
         public Transform CameraParentWhenPiloting;
 
@@ -64,6 +66,14 @@ namespace Assets.Scripts {
         //na potrzeby wyliczania obrażeń od kolizji
         public Vector3 VelocityVector => CameraParentWhenPiloting.transform.forward * CurrentSpeed;
 
+        private void OnEnable() {
+            ShipMovementController.isKinematic = false;
+            PlayerController.enabled = false;
+        }
+        private void OnDisable() {
+            ShipMovementController.isKinematic = true;
+            PlayerController.enabled = true;
+        }
         private void Awake() {
             this.ShipHealth.OnValueChanged.AddListener((o, n) => {
                 if (IsDed)
@@ -172,35 +182,41 @@ namespace Assets.Scripts {
             var shipRotation = input.x;
             var shipAcceleration = input.y;
 
-            CurrentSpeed += shipAcceleration * Time.fixedDeltaTime * (ShipSpeedModifier);
-            if (Mathf.Approximately(0f, shipAcceleration)) {
-                if (CurrentSpeed > 0) {
-                    CurrentSpeed -= IdleShipDrag * Time.fixedDeltaTime;
-                } else if (CurrentSpeed < 0) {
-                    CurrentSpeed += IdleShipDrag * Time.fixedDeltaTime;
-                }
-            }
+            var moveDir = CameraParentWhenPiloting.transform.forward;
+            ShipMovementController.AddForce(shipAcceleration * ShipSpeedModifier * moveDir, ForceMode.Force);
+            ShipMovementController.AddTorque(shipRotation * ShipRotationSpeedModifier * Vector3.up, ForceMode.Force);
 
-            CurrentSpeed = Mathf.Clamp(CurrentSpeed, -MaxSpeed, MaxSpeed);
+            //CurrentSpeed += shipAcceleration * Time.fixedDeltaTime * (ShipSpeedModifier);
+            //if (Mathf.Approximately(0f, shipAcceleration)) {
+            //    if (CurrentSpeed > 0) {
+            //        CurrentSpeed -= IdleShipDrag * Time.fixedDeltaTime;
+            //    } else if (CurrentSpeed < 0) {
+            //        CurrentSpeed += IdleShipDrag * Time.fixedDeltaTime;
+            //    }
+            //}
 
-            var additionalMultiplier = 1f;
-            if ((CurrentTurnSpeed < 0 && shipRotation > 0) || (CurrentTurnSpeed > 0 && shipRotation < 0)) {
-                additionalMultiplier = 2f;
-            }
-            CurrentTurnSpeed += shipRotation * additionalMultiplier * Time.fixedDeltaTime * ShipRotationSpeedModifier;
-            if (Mathf.Approximately(0f, shipRotation)) {
-                if (CurrentTurnSpeed > 0) {
-                    CurrentTurnSpeed -= RotationIdleDrag * Time.fixedDeltaTime;
-                } else if (CurrentTurnSpeed < 0) {
-                    CurrentTurnSpeed += RotationIdleDrag * Time.fixedDeltaTime;
-                }
-            }
+            //CurrentSpeed = Mathf.Clamp(CurrentSpeed, -MaxSpeed, MaxSpeed);
 
-            CurrentTurnSpeed = Mathf.Clamp(CurrentTurnSpeed, -MaxRotationSpeed, MaxRotationSpeed);
+            //var additionalMultiplier = 1f;
+            //if ((CurrentTurnSpeed < 0 && shipRotation > 0) || (CurrentTurnSpeed > 0 && shipRotation < 0)) {
+            //    additionalMultiplier = 2f;
+            //}
+            //CurrentTurnSpeed += shipRotation * additionalMultiplier * Time.fixedDeltaTime * ShipRotationSpeedModifier;
+            //if (Mathf.Approximately(0f, shipRotation)) {
+            //    if (CurrentTurnSpeed > 0) {
+            //        CurrentTurnSpeed -= RotationIdleDrag * Time.fixedDeltaTime;
+            //    } else if (CurrentTurnSpeed < 0) {
+            //        CurrentTurnSpeed += RotationIdleDrag * Time.fixedDeltaTime;
+            //    }
+            //}
 
-            var boatDirection = CameraParentWhenPiloting.transform.forward;
-            ShipRBody.Move(CurrentSpeed * Time.fixedDeltaTime * boatDirection);
-            ShipRBody.transform.rotation = (ShipRBody.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
+            //CurrentTurnSpeed = Mathf.Clamp(CurrentTurnSpeed, -MaxRotationSpeed, MaxRotationSpeed);
+
+            //var boatDirection = CameraParentWhenPiloting.transform.forward;
+            //ShipMovementController.MovePosition(ShipMovementController.transform.position + (CurrentSpeed * Time.fixedDeltaTime * boatDirection));
+            //ShipMovementController.MoveRotation(ShipMovementController.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
+            //ShipRBody.Move(CurrentSpeed * Time.fixedDeltaTime * boatDirection);
+            //ShipRBody.transform.rotation = (ShipRBody.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
 
             ShipWheelTransform.Rotate(shipRotation * ShipWheelRotateSpeed * Time.fixedDeltaTime * Vector3.up);
         }

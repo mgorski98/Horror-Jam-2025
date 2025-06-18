@@ -16,7 +16,7 @@ namespace Assets {
             }
         }
 
-        private void OnTriggerEnter(Collider collision) {
+        private void OnCollisionEnter(Collision collision) {
                 Debug.Log("COLLISION! " + collision.gameObject.name);
             if (collision.gameObject.CompareTag("Obstacle")) {
                 //var contact = collision.GetContact(0);

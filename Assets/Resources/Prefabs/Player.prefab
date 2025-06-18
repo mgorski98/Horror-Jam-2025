@@ -1015,6 +1015,7 @@ MonoBehaviour:
   InteractionDetector: {fileID: 1048448108034191308}
   Input: {fileID: 6014554554595494794}
   DumpButton: {fileID: 0}
+  PlayerController: {fileID: 9136471780635866816}
   MoveSupplier: {fileID: 2698881078001289643}
   ShipWheelTransform: {fileID: 0}
   ShipWheelRotateSpeed: 50
@@ -1025,9 +1026,10 @@ MonoBehaviour:
   CameraTargetRotationSpeed: 500
   ShipRoot: {fileID: 0}
   ShipBase: {fileID: 0}
+  ShipMovementController: {fileID: 0}
   ShipRBody: {fileID: 0}
   CameraParentWhenPiloting: {fileID: 0}
-  ShipSpeedModifier: 4.25
+  ShipSpeedModifier: 12
   ShipRotationSpeedModifier: 2.5
   MaxSpeed: 6
   Acceleration: 5
