@@ -11,6 +11,8 @@ public class FPSPlayerController : MonoBehaviour
     public Camera PlayerCamera;
     public CharacterController CharController;
 
+    public Transform PlayerShipParent;
+
     public InputActionSupplier MoveSupplier;
     public PlayerInput Input;
     public InputActionAsset InputActions;
@@ -96,17 +98,5 @@ public class FPSPlayerController : MonoBehaviour
     private Vector3 smoothVec;
     private void ReturnHeadBobToDefaultPos() {
         PlayerCamera.transform.localPosition = Vector3.SmoothDamp(PlayerCamera.transform.localPosition, StartLocalCameraPos, ref smoothVec, ReturnToStartValueSmoothing);
-    }
-
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("Ship")) {
-            transform.SetParent(collision.gameObject.transform);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision) {
-        if (collision.gameObject.CompareTag("Ship")) {
-            transform.SetParent(null);
-        }
     }
 }

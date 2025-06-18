@@ -16,11 +16,15 @@ namespace Assets {
             }
         }
 
-        private void OnCollisionEnter(Collision collision) {
-            //todo: damage the ship based on velocity
-            //todo: set up layer collisions correctly in project settings (ship on its own layer and obstacles on their own layer)
-            //todo: push the ship in the direction opposite to impact, with force based on velocity
-            //todo: calculate velocity vector in ship controller
+        private void OnTriggerEnter(Collider collision) {
+                Debug.Log("COLLISION! " + collision.gameObject.name);
+            if (collision.gameObject.CompareTag("Obstacle")) {
+                //var contact = collision.GetContact(0);
+                //var dirToObstacle = (collision.gameObject.transform.position - transform.position).normalized;
+                //var newVelocity = Vector3.Reflect(dirToObstacle, contact.normal);
+                //todo: nadpisać wektor movementu w ShipControllerze
+                ShipControl.DecrementLife();
+            }
         }
     }
 }

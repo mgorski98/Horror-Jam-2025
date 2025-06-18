@@ -2,6 +2,12 @@
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using Assets.Scripts.Interactables;
+using UnityEngine.InputSystem.Utilities;
+using Assets.Utils;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Assets.Scripts {
     public class ShipController : MonoBehaviour {
@@ -46,14 +52,83 @@ namespace Assets.Scripts {
 
         public Light[] ShipLights;
 
-        public float ShipHealth;
-        public float MaxShipHealth;
+        public ObservableValue<int> ShipHealth = new();
+        public int MaxShipHealth = 5;
 
         public bool IsNearSaltDepositStation = false;
 
+        private bool IsDed = false;
+
+        private ShipDockArea CurrentDockArea;
+
         //na potrzeby wyliczania obrażeń od kolizji
         public Vector3 VelocityVector => CameraParentWhenPiloting.transform.forward * CurrentSpeed;
-        
+
+        private void Awake() {
+            this.ShipHealth.OnValueChanged.AddListener((o, n) => {
+                if (IsDed)
+                    return;
+
+                if (n <= 0) {
+                    IsDed = true;
+                    HandleGameOver();
+                }
+            });
+        }
+
+        private void HandleGameOver() {
+            GameManager.Instance.DoGameOver();
+        }
+
+        public void OnDockingAreaEntered(ShipDockArea area) {
+            this.CurrentDockArea = area;
+            //todo: also show the indicator
+        }
+
+        public void OnDockingAreaExited(ShipDockArea area) {
+            if (this.CurrentDockArea == area) {
+                IsDocking = false;
+                this.CurrentDockArea = null;
+                DockingTweens.ForEach(t => t.Kill(false));
+                DockingTweens.Clear();
+                //todo: also hide the indicator
+            }
+        }
+
+        private bool IsDocking = false;
+        private bool IsDocked = false;
+        private List<Tweener> DockingTweens = new();
+        public void TryDocking_Action(InputAction.CallbackContext ctx) {
+            if (this.CurrentDockArea == null)
+                return;
+
+            if (IsDocked) {
+                IsDocked = false;
+                IsDocking = false;
+                return;
+            }
+
+            if (ctx.performed) {
+                //załączyć tweena, wyłączyć input i symulację ruchu
+                IsDocking = true;
+                DockingTweens.Add(ShipRoot.DOLocalMove(CurrentDockArea.DockPosition.position, CurrentDockArea.DockSpeed));
+                DockingTweens.Add(ShipRoot.DOLocalRotateQuaternion(CurrentDockArea.DockPosition.rotation, CurrentDockArea.DockSpeed));
+                DockingTweens[1].onComplete += () => {
+                    //otworzyć drzwiczki czy tam aktywować coś co pozwoli wyjść na molo/dok
+                    IsDocked = true;
+                };
+
+                CurrentSpeed = 0;
+                CurrentTurnSpeed = 0;
+            }
+
+            if (ctx.canceled) {
+                IsDocking = false;
+                //anulować tweena, przywrócić możliwość ruchu
+                DockingTweens.ForEach(t => t.Kill(false));
+                DockingTweens.Clear();
+            }
+        }
 
         public void StopControllingShip_Action(InputAction.CallbackContext ctx) {
             if (!ctx.performed)
@@ -91,7 +166,9 @@ namespace Assets.Scripts {
         }
 
         private void FixedUpdate() {
-            var input = MoveSupplier.Action.ReadValue<Vector2>();
+            //todo: trzeba będzie ogarnąć jak tą symulację robić bez wyłączania skryptu, żeby np. kolizje się obliczały jak jesteśmy na statku
+            //może wystarczy po prostu flaga? i niewyłączanie shipcontrollera?
+            var input = (IsDocking || IsDocked) ? Vector2.zero : MoveSupplier.Action.ReadValue<Vector2>();
             var shipRotation = input.x;
             var shipAcceleration = input.y;
 
@@ -172,6 +249,10 @@ namespace Assets.Scripts {
 
         private void LateUpdate() {
             PlayerCamera.transform.localRotation = Quaternion.RotateTowards(PlayerCamera.transform.localRotation, Quaternion.Euler(xRotAcc, yRotAcc, 0), Time.deltaTime * CameraTargetRotationSpeed);
+        }
+
+        public void DecrementLife() {
+            ShipHealth.Value--;
         }
     }
 }
