@@ -6,11 +6,11 @@ Shader "Custom/Waves"
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
-        _Speed ("Speed", Float) = 1.0
 
-        _WaveA ("Wave A (dir, steepness, wavelength)", Vector) = (1, 0, 0.5, 10)
-        _WaveB ("Wave B (dir, steepness, wavelength)", Vector) = (0, 1, 0.25, 20)
-        _WaveC ("Wave C", Vector) = (1,1,0.15,10)
+        //_WaveA ("Wave A (dir, steepness, wavelength)", Vector) = (1, 0, 0.5, 10)
+        //_WaveB ("Wave B (dir, steepness, wavelength)", Vector) = (0, 1, 0.25, 20)
+        //_WaveC ("Wave C", Vector) = (1,1,0.15,10)
+        //_Speed ("Speed", Float) = 1.0
     }
     SubShader
     {
@@ -33,6 +33,7 @@ Shader "Custom/Waves"
         fixed4 _Color;
         float _Speed;
         float4 _WaveA, _WaveB, _WaveC;
+        float _CustomTime;
 
         float3 GerstnerWave (float4 wave, float3 p, inout float3 tangent, inout float3 binormal)
         {
@@ -41,7 +42,7 @@ Shader "Custom/Waves"
             float k = 2 * UNITY_PI / wavelength;
             float c = sqrt(9.8 / k);
             float2 d = normalize(wave.xy);
-            float f = k * (dot(d, p.xz) - c * _Speed * _Time.y);
+            float f = k * (dot(d, p.xz) - c * _Speed * _CustomTime);
             float a = steepness / k;
 
             tangent += float3(
