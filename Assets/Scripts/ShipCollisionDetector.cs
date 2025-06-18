@@ -17,12 +17,8 @@ namespace Assets {
         }
 
         private void OnCollisionEnter(Collision collision) {
-                Debug.Log("COLLISION! " + collision.gameObject.name);
+            Debug.Log("COLLISION! " + collision.gameObject.name);
             if (collision.gameObject.CompareTag("Obstacle")) {
-                //var contact = collision.GetContact(0);
-                //var dirToObstacle = (collision.gameObject.transform.position - transform.position).normalized;
-                //var newVelocity = Vector3.Reflect(dirToObstacle, contact.normal);
-                //todo: nadpisać wektor movementu w ShipControllerze
                 ShipControl.DecrementLife();
             }
         }
