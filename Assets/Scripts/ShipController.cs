@@ -66,9 +66,14 @@ namespace Assets.Scripts {
         public UIDockingIndicator DockIndicator;
 
         //na potrzeby wyliczania obrażeń od kolizji
-        public Vector3 VelocityVector => CameraParentWhenPiloting.transform.forward * CurrentSpeed;
+        public float VelocityDmgThreshold = 1f;
+        //public Vector3 VelocityVector => CameraParentWhenPiloting.transform.forward * CurrentSpeed;
+        public Vector3 VelocityVector => ShipMovementController.linearVelocity;
 
         public SaltDepositShipStation CurrentDepositStation;
+
+        public bool UseWavesHeight = true;
+        public WavesManager WavesMgr;
 
         private void OnEnable() {
             ShipMovementController.isKinematic = false;
@@ -105,7 +110,6 @@ namespace Assets.Scripts {
                 this.CurrentDockArea = null;
                 DockingTweens.ForEach(t => t.Kill(false));
                 DockingTweens.Clear();
-                //todo: to też trzeba będzie wywołać jak zejdziemy ze statku
                 DockIndicator.Hide();
             }
         }
@@ -116,6 +120,9 @@ namespace Assets.Scripts {
         public void TryDocking_Action(InputAction.CallbackContext ctx) {
             if (this.CurrentDockArea == null)
                 return;
+
+            if (ctx.canceled)
+                DockIndicator.UpdateFill(0);
 
             if (IsDocked && ctx.performed) {
                 IsDocked = false;
@@ -196,6 +203,10 @@ namespace Assets.Scripts {
             var moveDir = CameraParentWhenPiloting.transform.forward;
             ShipMovementController.AddForce(shipAcceleration * ShipSpeedModifier * moveDir, ForceMode.Force);
             ShipMovementController.AddTorque(shipRotation * ShipRotationSpeedModifier * Vector3.up, ForceMode.Force);
+            if (UseWavesHeight)
+                ShipMovementController.transform.position = ShipMovementController.transform.position.Copy(
+                    overrideY: WavesMgr.GetVerticalPositionFromPoint(ShipMovementController.transform.position)
+                );
 
             ShipWheelTransform.Rotate(shipRotation * ShipWheelRotateSpeed * Time.fixedDeltaTime * Vector3.up);
         }
