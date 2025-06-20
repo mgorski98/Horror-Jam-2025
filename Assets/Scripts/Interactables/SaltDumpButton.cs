@@ -31,9 +31,15 @@ namespace Assets.Scripts.Interactables {
             if (ShipControl.IsNearSaltDepositStation == false)
                 return;
 
-            //todo: if ship has more or exactly the salt than is needed then just subtract it
-            //otherwise take all salt and decrement needed
             AnimateButtonPress();
+            if (this.SaltStorageRef.CurrentStoredSalt.Value >= ShipControl.CurrentDepositStation.NeededSaltInGrams) {
+                this.SaltStorageRef.CurrentStoredSalt.Value -= ShipControl.CurrentDepositStation.NeededSaltInGrams;
+                ShipControl.CurrentDepositStation.NeededSaltInGrams = 0;
+            }
+            else {
+                ShipControl.CurrentDepositStation.NeededSaltInGrams -= this.SaltStorageRef.CurrentStoredSalt.Value;
+                this.SaltStorageRef.CurrentStoredSalt.Value = 0;
+            }
         }
 
         public override string GetInteractionName() {

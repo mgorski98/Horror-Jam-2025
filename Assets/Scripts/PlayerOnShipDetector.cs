@@ -10,6 +10,7 @@ namespace Assets.Scripts {
     public class PlayerOnShipDetector : MonoBehaviour {
         public Transform ShipRoot;
         public Transform Player;
+        public UIDockingIndicator DockIndicator;
 
         private void Awake() {
             if (Player == null)
@@ -25,6 +26,7 @@ namespace Assets.Scripts {
         private void OnTriggerExit(Collider other) {
             if (other.gameObject.CompareTag("Player")) {
                 Player.transform.SetParent(null);
+                DockIndicator.Hide();
             }
         }
     }

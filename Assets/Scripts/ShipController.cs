@@ -63,8 +63,12 @@ namespace Assets.Scripts {
 
         private ShipDockArea CurrentDockArea;
 
+        public UIDockingIndicator DockIndicator;
+
         //na potrzeby wyliczania obrażeń od kolizji
         public Vector3 VelocityVector => CameraParentWhenPiloting.transform.forward * CurrentSpeed;
+
+        public SaltDepositShipStation CurrentDepositStation;
 
         private void OnEnable() {
             ShipMovementController.isKinematic = false;
@@ -92,7 +96,7 @@ namespace Assets.Scripts {
 
         public void OnDockingAreaEntered(ShipDockArea area) {
             this.CurrentDockArea = area;
-            //todo: also show the indicator
+            DockIndicator.Show();
         }
 
         public void OnDockingAreaExited(ShipDockArea area) {
@@ -101,7 +105,8 @@ namespace Assets.Scripts {
                 this.CurrentDockArea = null;
                 DockingTweens.ForEach(t => t.Kill(false));
                 DockingTweens.Clear();
-                //todo: also hide the indicator
+                //todo: to też trzeba będzie wywołać jak zejdziemy ze statku
+                DockIndicator.Hide();
             }
         }
 
@@ -112,13 +117,15 @@ namespace Assets.Scripts {
             if (this.CurrentDockArea == null)
                 return;
 
-            if (IsDocked) {
+            if (IsDocked && ctx.performed) {
                 IsDocked = false;
                 IsDocking = false;
+                DockIndicator.SetDocked(false);
+                DockIndicator.UpdateFill(0);
                 return;
             }
 
-            if (ctx.performed) {
+            if (ctx.performed && !IsDocked) {
                 //załączyć tweena, wyłączyć input i symulację ruchu
                 IsDocking = true;
                 DockingTweens.Add(ShipRoot.DOLocalMove(CurrentDockArea.DockPosition.position, CurrentDockArea.DockSpeed));
@@ -126,15 +133,20 @@ namespace Assets.Scripts {
                 DockingTweens[1].onComplete += () => {
                     //otworzyć drzwiczki czy tam aktywować coś co pozwoli wyjść na molo/dok
                     IsDocked = true;
+                    DockIndicator.SetDocked(true);
+                };
+
+                DockingTweens[1].onUpdate += () => {
+                    var progress = DockingTweens[1].position / CurrentDockArea.DockSpeed;
+                    DockIndicator.UpdateFill(progress);
                 };
 
                 CurrentSpeed = 0;
                 CurrentTurnSpeed = 0;
             }
 
-            if (ctx.canceled) {
+            if (ctx.canceled && !IsDocked) {
                 IsDocking = false;
-                //anulować tweena, przywrócić możliwość ruchu
                 DockingTweens.ForEach(t => t.Kill(false));
                 DockingTweens.Clear();
             }
@@ -164,7 +176,6 @@ namespace Assets.Scripts {
         public void TakeControlOfShip() {
             FPSController.enabled = false;
             this.InteractionDetector.enabled = false;
-            //todo: zapisac lokalna pozycje kamery w obiekcie gracza i tam ja przywrocic wtedy, bo obecnie zle sie ta pozycja przywraca
             OldPosition = PlayerCamera.transform.localPosition;
             OldRotation = PlayerCamera.transform.localRotation;
             Input.SwitchCurrentActionMap("Ship");
@@ -185,38 +196,6 @@ namespace Assets.Scripts {
             var moveDir = CameraParentWhenPiloting.transform.forward;
             ShipMovementController.AddForce(shipAcceleration * ShipSpeedModifier * moveDir, ForceMode.Force);
             ShipMovementController.AddTorque(shipRotation * ShipRotationSpeedModifier * Vector3.up, ForceMode.Force);
-
-            //CurrentSpeed += shipAcceleration * Time.fixedDeltaTime * (ShipSpeedModifier);
-            //if (Mathf.Approximately(0f, shipAcceleration)) {
-            //    if (CurrentSpeed > 0) {
-            //        CurrentSpeed -= IdleShipDrag * Time.fixedDeltaTime;
-            //    } else if (CurrentSpeed < 0) {
-            //        CurrentSpeed += IdleShipDrag * Time.fixedDeltaTime;
-            //    }
-            //}
-
-            //CurrentSpeed = Mathf.Clamp(CurrentSpeed, -MaxSpeed, MaxSpeed);
-
-            //var additionalMultiplier = 1f;
-            //if ((CurrentTurnSpeed < 0 && shipRotation > 0) || (CurrentTurnSpeed > 0 && shipRotation < 0)) {
-            //    additionalMultiplier = 2f;
-            //}
-            //CurrentTurnSpeed += shipRotation * additionalMultiplier * Time.fixedDeltaTime * ShipRotationSpeedModifier;
-            //if (Mathf.Approximately(0f, shipRotation)) {
-            //    if (CurrentTurnSpeed > 0) {
-            //        CurrentTurnSpeed -= RotationIdleDrag * Time.fixedDeltaTime;
-            //    } else if (CurrentTurnSpeed < 0) {
-            //        CurrentTurnSpeed += RotationIdleDrag * Time.fixedDeltaTime;
-            //    }
-            //}
-
-            //CurrentTurnSpeed = Mathf.Clamp(CurrentTurnSpeed, -MaxRotationSpeed, MaxRotationSpeed);
-
-            //var boatDirection = CameraParentWhenPiloting.transform.forward;
-            //ShipMovementController.MovePosition(ShipMovementController.transform.position + (CurrentSpeed * Time.fixedDeltaTime * boatDirection));
-            //ShipMovementController.MoveRotation(ShipMovementController.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
-            //ShipRBody.Move(CurrentSpeed * Time.fixedDeltaTime * boatDirection);
-            //ShipRBody.transform.rotation = (ShipRBody.transform.rotation * Quaternion.Euler(0, CurrentTurnSpeed, 0));
 
             ShipWheelTransform.Rotate(shipRotation * ShipWheelRotateSpeed * Time.fixedDeltaTime * Vector3.up);
         }

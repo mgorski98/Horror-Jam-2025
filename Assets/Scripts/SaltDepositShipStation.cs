@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Assets.Scripts {
     public class SaltDepositShipStation : MonoBehaviour {
         public int NeededSaltInGrams = 0;
-        public bool IsDone = false;
+        public bool IsDone => NeededSaltInGrams <= 0;
 
         public ShipController PlayerShip;
 
