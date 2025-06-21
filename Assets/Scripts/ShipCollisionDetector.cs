@@ -32,6 +32,9 @@ namespace Assets {
                 ShipControl.DecrementLife();
                 Collisions[collision.gameObject.GetInstanceID()] = collision.gameObject;
                 StartCoroutine(ClearCollisionEntry(collision.gameObject.GetInstanceID()));
+
+                //todo: play hit sound
+                //todo: shake camera, fade in a red overlay, etc.
             }
         }
 

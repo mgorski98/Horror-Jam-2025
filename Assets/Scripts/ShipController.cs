@@ -96,7 +96,7 @@ namespace Assets.Scripts {
         }
 
         private void HandleGameOver() {
-            GameManager.Instance.DoGameOver();
+            GameManager.Instance.DoGameOver(GameOverType.Drowned);
         }
 
         public void OnDockingAreaEntered(ShipDockArea area) {

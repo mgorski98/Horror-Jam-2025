@@ -1,9 +1,16 @@
 using Assets.Scripts;
 using Assets.Utils;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Linq;
+
+public enum GameOverType {
+    Drowned, //utoniêcie przez np. kolizjê
+    Consumed //rekin
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +29,10 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
 
     public string MenuSceneName;
+    public TMP_Text GameOverText;
+
+    public SaltDepositShipStation[] AllDepositStations;
+    public bool AreStationsDone => AllDepositStations.All(station => station.IsDone);
 
     private void Awake() {
         if (_instance == null)
@@ -42,7 +53,7 @@ public class GameManager : MonoBehaviour
             QuickRestartScene();
         }
         if (Keyboard.current.backspaceKey.wasPressedThisFrame) {
-            DoGameOver();
+            DoGameOver(GameOverType.Drowned);
         }
 #endif
 
@@ -59,7 +70,12 @@ public class GameManager : MonoBehaviour
         IsPaused.Value = !IsPaused.Value;
     }
 
-    public void DoGameOver() {
+    public void DoGameOver(GameOverType goType) {
+        GameOverText.text = goType switch {
+            GameOverType.Drowned => "You drowned...",
+            GameOverType.Consumed => "You were consumed...",
+            _ => ""
+        };
         GameOverMenuObject.SetActive(true);
         FadeOutCGroup.DOFade(1, GameOverFadeDuration).SetUpdate(true).onComplete += () => {
             GameOverMenuCGroup.DOFade(1, GameOverFadeDuration).SetUpdate(true).onComplete += PerformGameOverCleanup;
