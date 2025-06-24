@@ -174,6 +174,7 @@ namespace Assets.Scripts {
 
         private void FinishMining() {
             //wygaszamy ui od minigry i jak się wygasi, to przywracamy starą pozycję gracza sprzed miningu
+            this.enabled = false;
             AddSalt();
             MinigameCanvasGroup.DOFade(0f, SnapDuration).onComplete += () => {
                 PlayerCamera.transform.DOMove(OldPosition, SnapDuration);

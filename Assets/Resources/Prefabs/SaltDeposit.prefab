@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionName: Mine
-  SaltValue: 1500
+  SaltValue: 10000
   SaltCrystalsToShrink:
   - {fileID: 6315824037534494521}
   - {fileID: 737093624536338325}

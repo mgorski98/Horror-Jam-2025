@@ -17,6 +17,8 @@ namespace Assets.Scripts {
 
         public TMP_Text NeededSaltText;
 
+        public Light[] StatusLights;
+
         //todo: albo ustawić potrzebną sól obok guzika, albo gdzieś obok stacji. może niech wsysa sól z ładowni duża rura nad nami po kliknięciu?
         public void UpdateShipDumpStatus(bool entered) {
             if (entered) {
@@ -27,6 +29,14 @@ namespace Assets.Scripts {
                 NeededSaltText.text = string.Empty;
             }
             PlayerShip.IsNearSaltDepositStation = entered;
+        }
+
+        public void Update() {
+            if (IsDone)
+                foreach (var item in StatusLights)
+                {
+                    item.color = Color.green;
+                }
         }
     }
 }

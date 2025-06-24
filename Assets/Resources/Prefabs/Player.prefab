@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3185853732469666840}
   - component: {fileID: 7718779117008461934}
   - component: {fileID: 4613527326557447379}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3360677101964218395}
   - component: {fileID: 8027120600228628195}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 6296267834561494811}
   - component: {fileID: 8373652025598732742}
   - component: {fileID: 8040651555066970506}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1029,7 +1029,7 @@ MonoBehaviour:
   ShipMovementController: {fileID: 0}
   ShipRBody: {fileID: 0}
   CameraParentWhenPiloting: {fileID: 0}
-  ShipSpeedModifier: 12
+  ShipSpeedModifier: 20
   ShipRotationSpeedModifier: 2.5
   MaxSpeed: 6
   Acceleration: 5
@@ -1050,6 +1050,11 @@ MonoBehaviour:
         m_Calls: []
   MaxShipHealth: 5
   IsNearSaltDepositStation: 0
+  DockIndicator: {fileID: 0}
+  VelocityDmgThreshold: 1
+  CurrentDepositStation: {fileID: 0}
+  UseWavesHeight: 1
+  WavesMgr: {fileID: 0}
 --- !u!114 &6296267834561494811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,7 +1158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1522095449998638227}
   - component: {fileID: 88644433153264123}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player/Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1199,7 +1204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6477351354046503471}
   - component: {fileID: 2698881078001289643}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ship/Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1244,7 +1249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2018733425720740310}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ActionSuppliers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1277,7 +1282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1469424968282717982}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LampRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1312,7 +1317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5773281425586870394}
   - component: {fileID: 8199993163141520158}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShipStuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1443,7 +1448,7 @@ GameObject:
   - component: {fileID: 4415638203625399537}
   - component: {fileID: 4572626195550634697}
   - component: {fileID: 2047602096886509181}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GrabPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1556,7 +1561,7 @@ GameObject:
   - component: {fileID: 2049395992973227045}
   - component: {fileID: 5431804989087591233}
   - component: {fileID: 6124648102168493657}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

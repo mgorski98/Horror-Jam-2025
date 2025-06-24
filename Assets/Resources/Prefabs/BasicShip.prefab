@@ -86,8 +86,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.436307, y: 1, z: 2.58}
-  m_Center: {x: 0.47624254, y: 0, z: 0}
+  m_Size: {x: 3.436307, y: 0.3210876, z: 2.58}
+  m_Center: {x: 0.47624254, y: -0.01996988, z: 0}
 --- !u!54 &1673664321777474431
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1749,6 +1749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShipRoot: {fileID: 8174999035334673482}
   Player: {fileID: 0}
+  DockIndicator: {fileID: 0}
 --- !u!1 &6278079064405376375
 GameObject:
   m_ObjectHideFlags: 0

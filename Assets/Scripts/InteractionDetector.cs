@@ -22,6 +22,8 @@ public class InteractionDetector : MonoBehaviour
     public Color TintColor;
     private Color[] PreviousDefaultRendererColors = new Color[150];
 
+    private RaycastHit[] Hits = new RaycastHit[15];
+
     private void Awake() {
         this.InteractAction = Actions.FindAction("Player/Interact");
     }
@@ -31,8 +33,10 @@ public class InteractionDetector : MonoBehaviour
     }
 
     private void Update() {
-        if (Physics.Raycast(CheckOrigin.position, CheckDirectionSupplier.forward, out RaycastHit hit, InteractionRange, InteractablesMask, QueryTriggerInteraction.Collide)) {
-            var interactable = hit.transform.gameObject.GetComponent<InteractableObject>();
+        int count = Physics.RaycastNonAlloc(CheckOrigin.position, CheckDirectionSupplier.forward, Hits, InteractionRange, InteractablesMask, QueryTriggerInteraction.Collide);
+        if (count > 0/*Physics.Raycast(CheckOrigin.position, CheckDirectionSupplier.forward, out RaycastHit hit, InteractionRange, InteractablesMask, QueryTriggerInteraction.Collide)*/) {
+            var hit = Hits.Take(count).FirstOrDefault(h => h.collider.gameObject.TryGetComponent<InteractableObject>(out var _));
+            var interactable = hit.transform == null ? null : hit.collider.gameObject.GetComponent<InteractableObject>();
             if (interactable == null) {
                 InteractionText.text = string.Empty;
             } else {
