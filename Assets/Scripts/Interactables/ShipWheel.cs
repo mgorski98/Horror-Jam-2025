@@ -15,8 +15,10 @@ public class ShipWheel : InteractableObject {
     }
 
     public override void DoInteract() {
-        //todo: prze³¹cz sterowanie na statek, ustaw boola
-        //todo: jak gracz skrêca statkiem to ko³o statku te¿ siê krêci na podstawie input vectora (w X)
         ShipController.TakeControlOfShip();
+    }
+
+    public override void StopInteract() {
+        ShipController.StopControllingShip();
     }
 }
