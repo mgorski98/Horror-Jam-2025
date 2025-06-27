@@ -111,7 +111,7 @@ namespace Assets.Scripts {
         }
 
         private bool IsDocking = false;
-        private bool IsDocked = false;
+        public bool IsDocked = false;
         private List<Tweener> DockingTweens = new();
         public void TryDocking_Action(InputAction.CallbackContext ctx) {
             if (this.CurrentDockArea == null)
@@ -131,10 +131,10 @@ namespace Assets.Scripts {
             if (ctx.performed && !IsDocked) {
                 //załączyć tweena, wyłączyć input i symulację ruchu
                 IsDocking = true;
-                DockingTweens.Add(ShipRoot.DOLocalMove(CurrentDockArea.DockPosition.position, CurrentDockArea.DockSpeed));
-                DockingTweens.Add(ShipRoot.DOLocalRotateQuaternion(CurrentDockArea.DockPosition.rotation, CurrentDockArea.DockSpeed));
+                DockingTweens.Add(ShipRoot.DOLocalMove(CurrentDockArea.DockPosition.position, CurrentDockArea.DockSpeed).SetEase(CurrentDockArea.DockingEaseFunc));
+                DockingTweens.Add(ShipRoot.DOLocalRotateQuaternion(CurrentDockArea.DockPosition.rotation, CurrentDockArea.DockSpeed).SetEase(CurrentDockArea.DockingEaseFunc));
                 DockingTweens[1].onComplete += () => {
-                    //otworzyć drzwiczki czy tam aktywować coś co pozwoli wyjść na molo/dok
+                    //todo: otworzyć drzwiczki czy tam aktywować coś co pozwoli wyjść na molo/dok
                     IsDocked = true;
                     DockIndicator.SetDocked(true);
                 };
