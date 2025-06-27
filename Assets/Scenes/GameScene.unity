@@ -1768,6 +1768,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1064451968}
     - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: MaxCameraRotationDegrees
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
+      propertyPath: MinCameraRotationDegrees
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192916279135940297, guid: 4f8ce94e43ba2594cbf1ef7d5e4a32a6, type: 3}
       propertyPath: 'ShipLights.Array.data[0]'
       value: 
       objectReference: {fileID: 1373139438}
