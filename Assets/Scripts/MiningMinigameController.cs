@@ -107,7 +107,7 @@ namespace Assets.Scripts {
             InteractDetector.enabled = false;
             Input.SwitchCurrentActionMap("Mining");
             //musimy kliknąć lewy myszki kiedy kryształ jest w tym wewnętrznym pasku żeby wydobyć sól, nietrafienie oznacza brak postępu i chwilową niemożność uderzenia ponownie (jakieś 0.5 sekundy np.)
-            var directionToDeposit = Quaternion.LookRotation((depositToMine.transform.position.ToFlatXZ() - targetSpot.position.ToFlatXZ()).normalized, Vector3.up);
+            var directionToDeposit = Quaternion.LookRotation((depositToMine.transform.position - targetSpot.position).normalized, Vector3.up);
             OldPosition = PlayerCamera.transform.position;
             OldRotation = PlayerCamera.transform.rotation;
             MiningProgress.Value = 0f;
