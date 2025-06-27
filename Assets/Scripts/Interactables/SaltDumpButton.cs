@@ -67,5 +67,8 @@ namespace Assets.Scripts.Interactables {
                 };
             };
         }
+
+        public override void StopInteract() {
+        }
     }
 }

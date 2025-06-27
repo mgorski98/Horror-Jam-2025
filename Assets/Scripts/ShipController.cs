@@ -2,11 +2,7 @@
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using Assets.Scripts.Interactables;
-using UnityEngine.InputSystem.Utilities;
 using Assets.Utils;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
-using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace Assets.Scripts {
@@ -30,8 +26,6 @@ namespace Assets.Scripts {
         public Camera PlayerCamera;
         public float CameraMaxYRotRange;
         public float CameraMaxXRotRange;
-        public float CameraSensitivity;
-        public float CameraTargetRotationSpeed;
 
         public Transform ShipRoot;
         public Transform ShipBase;
@@ -82,6 +76,8 @@ namespace Assets.Scripts {
         private void OnDisable() {
             ShipMovementController.isKinematic = true;
             PlayerController.enabled = true;
+            xRotAcc = 0;
+            yRotAcc = 0;
         }
         private void Awake() {
             this.ShipHealth.OnValueChanged.AddListener((o, n) => {
@@ -115,7 +111,7 @@ namespace Assets.Scripts {
         }
 
         private bool IsDocking = false;
-        private bool IsDocked = false;
+        public bool IsDocked = false;
         private List<Tweener> DockingTweens = new();
         public void TryDocking_Action(InputAction.CallbackContext ctx) {
             if (this.CurrentDockArea == null)
@@ -135,10 +131,10 @@ namespace Assets.Scripts {
             if (ctx.performed && !IsDocked) {
                 //załączyć tweena, wyłączyć input i symulację ruchu
                 IsDocking = true;
-                DockingTweens.Add(ShipRoot.DOLocalMove(CurrentDockArea.DockPosition.position, CurrentDockArea.DockSpeed));
-                DockingTweens.Add(ShipRoot.DOLocalRotateQuaternion(CurrentDockArea.DockPosition.rotation, CurrentDockArea.DockSpeed));
+                DockingTweens.Add(ShipRoot.DOLocalMove(CurrentDockArea.DockPosition.position, CurrentDockArea.DockSpeed).SetEase(CurrentDockArea.DockingEaseFunc));
+                DockingTweens.Add(ShipRoot.DOLocalRotateQuaternion(CurrentDockArea.DockPosition.rotation, CurrentDockArea.DockSpeed).SetEase(CurrentDockArea.DockingEaseFunc));
                 DockingTweens[1].onComplete += () => {
-                    //otworzyć drzwiczki czy tam aktywować coś co pozwoli wyjść na molo/dok
+                    //todo: otworzyć drzwiczki czy tam aktywować coś co pozwoli wyjść na molo/dok
                     IsDocked = true;
                     DockIndicator.SetDocked(true);
                 };
@@ -225,8 +221,6 @@ namespace Assets.Scripts {
 
         private float xRotAcc = 0;
         private float yRotAcc = 0;
-
-        private Vector2 CameraInput;
         public void ToggleShipLights(InputAction.CallbackContext ctx) {
             if (!ctx.performed)
                 return;
@@ -234,7 +228,8 @@ namespace Assets.Scripts {
             if (ShipLights == null || ShipLights.Length <= 0)
                 return;
 
-            //todo: dodać check czy gra jest spauzowana - jak tak to wyjść
+            if (GameManager.Instance.IsPaused)
+                return;
 
             foreach (var light in ShipLights) {
                 light.gameObject.SetActive(!light.gameObject.activeSelf);
@@ -242,19 +237,33 @@ namespace Assets.Scripts {
         }
 
         public void UpdateCameraRotation(InputAction.CallbackContext ctx) {
-            if (ctx.canceled)
+            //CameraInput = CameraSensitivity * Time.deltaTime * ctx.ReadValue<Vector2>();
+            //xRotAcc += -CameraInput.y;
+            //yRotAcc += CameraInput.x;
+            if (this.enabled == false)
                 return;
 
-            CameraInput = CameraSensitivity * Time.deltaTime * ctx.ReadValue<Vector2>();
-            xRotAcc += -CameraInput.y;
-            yRotAcc += CameraInput.x;
+            //xRotAcc = Mathf.Clamp(xRotAcc, -CameraMaxXRotRange, CameraMaxXRotRange);
+            //yRotAcc = Mathf.Clamp(yRotAcc, - CameraMaxYRotRange, CameraMaxYRotRange);
+            var rotationVector = ctx.ReadValue<Vector2>();
 
-            xRotAcc = Mathf.Clamp(xRotAcc, -CameraMaxXRotRange, CameraMaxXRotRange);
-            yRotAcc = Mathf.Clamp(yRotAcc, - CameraMaxYRotRange, CameraMaxYRotRange);
+            var rotX = -(rotationVector.y * FPSController.CameraSensitivity * Time.deltaTime);
+            xRotAcc += rotX;
+            xRotAcc = ClampAngle(xRotAcc, -CameraMaxXRotRange, CameraMaxXRotRange);
+            var rotY = FPSController.CameraSensitivity * rotationVector.x * Time.deltaTime;
+            yRotAcc += rotY;
+            yRotAcc = ClampAngle(yRotAcc, -CameraMaxYRotRange, CameraMaxYRotRange);
+            PlayerCamera.transform.localRotation = Quaternion.Euler(xRotAcc, yRotAcc, 0f);
+        }
+
+        private float ClampAngle(float angle, float min, float max) {
+            if (angle < -360f) angle += 360f;
+            if (angle > 360f) angle -= 360f;
+            return Mathf.Clamp(angle, min, max);
         }
 
         private void LateUpdate() {
-            PlayerCamera.transform.localRotation = Quaternion.RotateTowards(PlayerCamera.transform.localRotation, Quaternion.Euler(xRotAcc, yRotAcc, 0), Time.deltaTime * CameraTargetRotationSpeed);
+            //PlayerCamera.transform.localRotation = Quaternion.RotateTowards(PlayerCamera.transform.localRotation, Quaternion.Euler(xRotAcc, yRotAcc, 0), Time.deltaTime * CameraTargetRotationSpeed);
         }
 
         public void DecrementLife() {

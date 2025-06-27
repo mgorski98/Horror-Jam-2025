@@ -47,4 +47,10 @@ public class SaltDeposit : InteractableObject
     public override bool ShouldShowBindingKey() {
         return MiningController.StorageRef.IsFull == false;
     }
+
+    public override void StopInteract() {
+        if (MiningController != null && MiningController.enabled) {
+            MiningController.QuitMining();
+        }
+    }
 }

@@ -42,6 +42,8 @@ public class FPSPlayerController : MonoBehaviour
     }
 
     public void RotateCamera(InputAction.CallbackContext ctx) {
+        if (this.enabled == false)
+            return;
         var rotationVector = ctx.ReadValue<Vector2>();
 
         var rotX = -(rotationVector.y * CameraSensitivity * Time.deltaTime);

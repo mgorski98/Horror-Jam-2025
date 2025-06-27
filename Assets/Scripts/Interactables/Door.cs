@@ -27,5 +27,9 @@ namespace Assets.Scripts.Interactables {
         public override bool ShouldShowBindingKey() {
             return !IsLocked;
         }
+
+        public override void StopInteract() {
+            throw new NotImplementedException();
+        }
     }
 }

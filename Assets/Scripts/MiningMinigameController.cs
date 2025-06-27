@@ -71,7 +71,18 @@ namespace Assets.Scripts {
         private float UnsuccessfulHitTimer = 0;
         private float SpawnSaltIndicatorTimer = 0;
 
+        public Animator PickaxeAnimator;
+        public GameObject Pickaxe;
+        [SerializeField]
+        private Vector3 PickaxeStartLocalPos;
+        [SerializeField]
+        private Vector3 PickaxeHiddenOffset;
+        private Vector3 PickaxeHiddenPos => PickaxeHiddenOffset + PickaxeStartLocalPos;
+        private readonly static int HIT_ANIM = Animator.StringToHash("HIT_SUCCESS");
+        private readonly static int HIT_FAIL_ANIM = Animator.StringToHash("HIT_FAIL");
+
         private void Awake() {
+            Pickaxe.transform.localPosition = PickaxeHiddenPos;
             MiningProgress.OnValueChanged.AddListener((old, new_) => {
                 if (this.Deposit == null)
                     return;
@@ -96,7 +107,7 @@ namespace Assets.Scripts {
             InteractDetector.enabled = false;
             Input.SwitchCurrentActionMap("Mining");
             //musimy kliknąć lewy myszki kiedy kryształ jest w tym wewnętrznym pasku żeby wydobyć sól, nietrafienie oznacza brak postępu i chwilową niemożność uderzenia ponownie (jakieś 0.5 sekundy np.)
-            var directionToDeposit = Quaternion.LookRotation((depositToMine.transform.position - targetSpot.position).normalized, Vector3.up);
+            var directionToDeposit = Quaternion.LookRotation((depositToMine.transform.position.ToFlatXZ() - targetSpot.position.ToFlatXZ()).normalized, Vector3.up);
             OldPosition = PlayerCamera.transform.position;
             OldRotation = PlayerCamera.transform.rotation;
             MiningProgress.Value = 0f;
@@ -111,6 +122,8 @@ namespace Assets.Scripts {
                 MinigameCanvasGroup.DOFade(1f, MinigameFadeInDuration).onComplete += () => {
                     SpawnSaltIndicatorTimer = SpawnIntervals[UnityEngine.Random.Range(0, SpawnIntervals.Length)];
                 };
+                Pickaxe.gameObject.SetActive(true);
+                Pickaxe.transform.DOLocalMove(PickaxeStartLocalPos, MinigameFadeInDuration).onComplete += () => PickaxeAnimator.enabled = true;
             };
         }
 
@@ -160,6 +173,8 @@ namespace Assets.Scripts {
 
         public void QuitMining() {
             this.enabled = false;
+            PickaxeAnimator.enabled = false;
+            PickaxeAnimator.gameObject.SetActive(false);
             for (int i = 0; i < Deposit.StartingCrystalScaleValues.Length; i++) {
                 Deposit.SaltCrystalsToShrink[i].localScale = Deposit.StartingCrystalScaleValues[i];
             }
@@ -175,6 +190,9 @@ namespace Assets.Scripts {
         private void FinishMining() {
             //wygaszamy ui od minigry i jak się wygasi, to przywracamy starą pozycję gracza sprzed miningu
             this.enabled = false;
+            this.SpawnSaltIndicatorTimer = -1f;
+            PickaxeAnimator.enabled = false;
+            Pickaxe.transform.DOMove(PickaxeHiddenPos, SnapDuration).onComplete += () => Pickaxe.SetActive(false);
             AddSalt();
             MinigameCanvasGroup.DOFade(0f, SnapDuration).onComplete += () => {
                 PlayerCamera.transform.DOMove(OldPosition, SnapDuration);
@@ -201,22 +219,26 @@ namespace Assets.Scripts {
             if (this.UnsuccessfulHitTimer > 0)
                 return;
 
+            this.PickaxeAnimator.ResetTrigger(HIT_ANIM);
+            this.PickaxeAnimator.ResetTrigger(HIT_FAIL_ANIM);
+
             var indicator = GetFirstOverlappingHitIndicator();
             if (indicator == null) {
                 //todo: nietrafiony hit, wyświetl o tym informację i ustaw timer, odtwórz GŁOŚNY DŹWIĘK WABIĄCY REKINA, obniż progress o wartość mining strength lub 2*miningstrength
                 UnsuccessfulHitTimer = FailedHitStopDuration;
+                this.PickaxeAnimator.Play("miss", -1, normalizedTime: 0);
                 //todo: tutaj będzie potrzrebny jakiś audio system + scriptable object dźwięku wraz z zasięgiem na jakim słychać dźwięk
                 //todo: wtedy rekin może zasubskrybować do tego systemu żeby słuchać konkretnych dźwięków i jak jest w zasięgu to go przyciągamy
                 //tutaj można użyć tego systemu jak nie trafimy w element na pasku
                 Debug.Log("BOOHOO, MISSED");
             } else {
-                
                 MiningProgress.Value += MiningStrength;
                 if (MiningSoundsAudioSource != null && MiningClips.Length > 0)
                     MiningSoundsAudioSource.PlayOneShot(MiningClips[UnityEngine.Random.Range(0, MiningClips.Length)]);
                 Debug.Log("YEEHAW, HIT");
                 Indicators.Remove(indicator.gameObject);
                 Destroy(indicator.gameObject);
+                this.PickaxeAnimator.Play("hit", -1, normalizedTime: 0);
             }
         }
 

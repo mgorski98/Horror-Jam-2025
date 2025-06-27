@@ -432,15 +432,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Stop controlling ship",
-                    "type": "Button",
-                    "id": "80941d85-8645-458d-9b64-949e594200fa",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Toggle lights",
                     "type": "Button",
                     "id": "46beedc1-159e-4034-a92f-f518627b164d",
@@ -633,17 +624,6 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Honk",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "233e3805-cfa5-4694-9c16-47911c2df517",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Stop controlling ship",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1201,6 +1181,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "2c482d51-6665-4af8-b9f4-658776a147c3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Toggle player light",
                     "type": "Button",
                     "id": "b997eef5-0d2c-42f3-a103-731148cd9fb0",
@@ -1219,6 +1208,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2232c4c9-5e8f-4147-8b8d-1a2bb8b5c4e9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4531e684-6fc1-46b0-850b-8d382e076879",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1247,15 +1258,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Quit mining",
-                    "type": "Button",
-                    "id": "5981e42e-0837-427b-b236-4a606348ffed",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1267,17 +1269,6 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Hit deposit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5762be5e-56e8-4661-881c-b143740a288c",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quit mining",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

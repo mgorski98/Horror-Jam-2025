@@ -24,6 +24,8 @@ public class InteractionDetector : MonoBehaviour
 
     private RaycastHit[] Hits = new RaycastHit[15];
 
+    public InteractableObject InteractingWith;
+
     private void Awake() {
         this.InteractAction = Actions.FindAction("Player/Interact");
     }
@@ -84,9 +86,17 @@ public class InteractionDetector : MonoBehaviour
         if (ctx.performed == false)
             return;
 
-        if (CurrentInteractable == null)
+        if (GameManager.Instance.IsPaused)
             return;
 
-        CurrentInteractable.DoInteract();
+        if (InteractingWith == null) {
+            if (CurrentInteractable == null)
+                return;
+            InteractingWith = CurrentInteractable;
+            CurrentInteractable.DoInteract();
+        } else {
+            InteractingWith.StopInteract();
+            InteractingWith = null;
+        }
     }
 }

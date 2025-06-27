@@ -10,5 +10,8 @@ namespace Assets.Scripts.Interactables {
     public class SlidingDoor : InteractableObject {
         public override void DoInteract() {
         }
+
+        public override void StopInteract() {
+        }
     }
 }

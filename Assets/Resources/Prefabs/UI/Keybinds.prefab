@@ -170,7 +170,6 @@ MonoBehaviour:
   - ActionMapName: Mining
     ActionNames:
     - Hit deposit
-    - Quit mining
   - ActionMapName: Player
     ActionNames:
     - Interact
@@ -178,7 +177,6 @@ MonoBehaviour:
   - ActionMapName: Ship
     ActionNames:
     - Honk
-    - Stop controlling ship
     - Toggle lights
     - Dock
   BindingsText: {fileID: 5148236464920322457}
