@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
 
         IsPaused.OnValueChanged.AddListener((o, n) => Time.timeScale = System.Convert.ToSingle(!n));
         IsPaused.OnValueChanged.AddListener((o, n) => PauseMenu.Toggle(n));
+        IsPaused.OnValueChanged.AddListener((o, n) => HideCursor(n));
+
+        HideCursor(true);
     }
 
     private void OnDestroy() {
@@ -90,5 +93,11 @@ public class GameManager : MonoBehaviour
 
     public void QuickRestartScene() { 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void HideCursor(bool value)
+    {
+        Cursor.lockState = value ? CursorLockMode.Confined : CursorLockMode.None;
+        Cursor.visible = !value;
     }
 }
