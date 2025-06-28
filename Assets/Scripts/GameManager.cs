@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
 
         IsPaused.OnValueChanged.AddListener((o, n) => Time.timeScale = System.Convert.ToSingle(!n));
         IsPaused.OnValueChanged.AddListener((o, n) => PauseMenu.Toggle(n));
-        IsPaused.OnValueChanged.AddListener((o, n) => HideCursor(n));
 
         HideCursor(true);
     }
@@ -71,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void TogglePause() {
         IsPaused.Value = !IsPaused.Value;
+        HideCursor(!IsPaused.Value);
     }
 
     public void DoGameOver(GameOverType goType) {
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     public void HideCursor(bool value)
     {
-        Cursor.lockState = value ? CursorLockMode.Confined : CursorLockMode.None;
+        Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !value;
     }
 }
