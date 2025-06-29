@@ -833,22 +833,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8192916279135940297}
         m_TargetAssemblyTypeName: Assets.Scripts.ShipController, Assembly-CSharp
-        m_MethodName: StopControllingShip_Action
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 80941d85-8645-458d-9b64-949e594200fa
-    m_ActionName: 'Ship/Stop controlling[/Keyboard/q]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8192916279135940297}
-        m_TargetAssemblyTypeName: Assets.Scripts.ShipController, Assembly-CSharp
         m_MethodName: ToggleShipLights
         m_Mode: 0
         m_Arguments:
@@ -911,22 +895,6 @@ MonoBehaviour:
     m_ActionName: 'Mining/Hit[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8373652025598732742}
-        m_TargetAssemblyTypeName: Assets.Scripts.MiningMinigameController, Assembly-CSharp
-        m_MethodName: QuitMining_Action
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5981e42e-0837-427b-b236-4a606348ffed
-    m_ActionName: 'Mining/Quit[/Keyboard/q]'
-  - m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 8192916279135940297}
         m_TargetAssemblyTypeName: Assets.Scripts.ShipController, Assembly-CSharp
         m_MethodName: TryDocking_Action
@@ -941,6 +909,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 99a1b8de-84b6-4c67-b872-1a35e2f01d7b
     m_ActionName: 'Ship/Dock[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2c482d51-6665-4af8-b9f4-658776a147c3
+    m_ActionName: 'Global/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -997,6 +969,7 @@ MonoBehaviour:
   InteractionText: {fileID: 0}
   Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   TintColor: {r: 1, g: 0.46975583, b: 0.4481132, a: 1}
+  InteractingWith: {fileID: 0}
 --- !u!114 &8192916279135940297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,8 +995,6 @@ MonoBehaviour:
   PlayerCamera: {fileID: 5431804989087591233}
   CameraMaxYRotRange: 50
   CameraMaxXRotRange: 12
-  CameraSensitivity: 15
-  CameraTargetRotationSpeed: 500
   ShipRoot: {fileID: 0}
   ShipBase: {fileID: 0}
   ShipMovementController: {fileID: 0}
@@ -1055,6 +1026,7 @@ MonoBehaviour:
   CurrentDepositStation: {fileID: 0}
   UseWavesHeight: 1
   WavesMgr: {fileID: 0}
+  IsDocked: 0
 --- !u!114 &6296267834561494811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1125,6 +1097,10 @@ MonoBehaviour:
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []
+  PickaxeAnimator: {fileID: 0}
+  Pickaxe: {fileID: 0}
+  PickaxeStartLocalPos: {x: 0, y: 0, z: 0}
+  PickaxeHiddenOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &8040651555066970506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1561,6 +1537,7 @@ GameObject:
   - component: {fileID: 2049395992973227045}
   - component: {fileID: 5431804989087591233}
   - component: {fileID: 6124648102168493657}
+  - component: {fileID: 3436598253135541067}
   m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1624,7 +1601,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 247
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -1643,3 +1620,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7989391284439973958}
   m_Enabled: 1
+--- !u!114 &3436598253135541067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989391284439973958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee4ab9821096c489f84e50f35b7b9644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _material: {fileID: 0}
+  _startDistance: 1
+  _useRadialDistance: 0
+  _fadeToSkybox: 1
+  _shader: {fileID: 4800000, guid: 3514cc2676a6c4db294c28459f22c359, type: 3}
