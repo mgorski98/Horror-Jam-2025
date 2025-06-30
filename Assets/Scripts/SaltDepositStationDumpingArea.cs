@@ -9,8 +9,6 @@ namespace Assets.Scripts {
         public GameObject AreaIndicatorGizmoObject;
         public float AreaIndicatorShowDistance;
 
-        private bool PlayerEnteredArea;
-
         private void Awake() {
             if (ShipControl == null)
                 ShipControl = FindObjectOfType<ShipController>(true);
@@ -22,7 +20,6 @@ namespace Assets.Scripts {
                 ShipControl.CurrentDepositStation = this.DepositStation;
             }
             if (other.gameObject.CompareTag("Ship")) {
-                PlayerEnteredArea = true;
                 AreaIndicatorGizmoObject.SetActive(false);
             }
         }
@@ -33,17 +30,13 @@ namespace Assets.Scripts {
                 if (DepositStation == ShipControl.CurrentDepositStation)
                     ShipControl.CurrentDepositStation = null;
             }
-
-            if (other.gameObject.CompareTag("Ship")) {
-                PlayerEnteredArea = false;
-            }
         }
 
         private void Update() {
             if (Ship == null)
                 return;
 
-            if (Vector3.Distance(Ship.position, transform.position) <= AreaIndicatorShowDistance && !PlayerEnteredArea) {
+            if (Vector3.Distance(Ship.position, transform.position) <= AreaIndicatorShowDistance) {
                 AreaIndicatorGizmoObject.SetActive(true);
             }
             else {
