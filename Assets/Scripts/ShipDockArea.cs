@@ -24,6 +24,9 @@ namespace Assets.Scripts {
         private void Awake() {
             if (SController == null)
                 SController = FindObjectOfType<ShipController>(true);
+
+            if (Ship == null)
+                Ship = GameObject.FindWithTag("Ship").transform;
         }
 
         private void OnTriggerEnter(Collider other) {

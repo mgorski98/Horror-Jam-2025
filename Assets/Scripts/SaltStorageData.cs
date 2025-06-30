@@ -37,7 +37,8 @@ namespace Assets.Scripts {
                 var ratio = Mathf.Clamp01(CurrentStoredSalt.Value / (float)MaxSaltStorage);
 
                 //SaltStorageTakenProgressBar.fillAmount = ratio;
-                BarometerArmRotationTransform.localRotation = Quaternion.Euler(Vector3.Lerp(ZeroBarometerRotation, MaxBarometerRotation, ratio));
+                if (BarometerArmRotationTransform != null)
+                    BarometerArmRotationTransform.localRotation = Quaternion.Euler(Vector3.Lerp(ZeroBarometerRotation, MaxBarometerRotation, ratio));
             });
         }
 
