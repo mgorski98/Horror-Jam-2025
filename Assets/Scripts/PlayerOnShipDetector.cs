@@ -11,22 +11,21 @@ namespace Assets.Scripts {
         public Transform ShipRoot;
         public Transform Player;
         public UIDockingIndicator DockIndicator;
+        public Transform CheckOriginTransform;
+        public float CheckRange;
+        public LayerMask CheckMask;
 
         private void Awake() {
             if (Player == null)
                 Player = GameObject.FindWithTag("Player").transform;
         }
 
-        private void OnTriggerEnter(Collider other) {
-            if (other.gameObject.CompareTag("Player")) {
+        private void Update() {
+            if (Physics.Raycast(CheckOriginTransform.position, Vector3.down, CheckRange, CheckMask)) {
                 Player.transform.SetParent(ShipRoot);
             }
-        }
-
-        private void OnTriggerExit(Collider other) {
-            if (other.gameObject.CompareTag("Player")) {
+            else {
                 Player.transform.SetParent(null);
-                DockIndicator.Hide();
             }
         }
     }

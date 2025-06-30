@@ -32,14 +32,15 @@ namespace Assets.Scripts.Interactables {
                 return;
 
             AnimateButtonPress();
-            if (this.SaltStorageRef.CurrentStoredSalt.Value >= ShipControl.CurrentDepositStation.NeededSaltInGrams) {
-                this.SaltStorageRef.CurrentStoredSalt.Value -= ShipControl.CurrentDepositStation.NeededSaltInGrams;
-                ShipControl.CurrentDepositStation.NeededSaltInGrams = 0;
+            if (this.SaltStorageRef.CurrentStoredSalt.Value >= ShipControl.CurrentDepositStation.NeededSaltInKg) {
+                this.SaltStorageRef.CurrentStoredSalt.Value -= ShipControl.CurrentDepositStation.NeededSaltInKg;
+                ShipControl.CurrentDepositStation.NeededSaltInKg = 0;
             }
             else {
-                ShipControl.CurrentDepositStation.NeededSaltInGrams -= this.SaltStorageRef.CurrentStoredSalt.Value;
+                ShipControl.CurrentDepositStation.NeededSaltInKg -= this.SaltStorageRef.CurrentStoredSalt.Value;
                 this.SaltStorageRef.CurrentStoredSalt.Value = 0;
             }
+            ShipControl.CurrentDepositStation.UpdateProgress();
         }
 
         public override string GetInteractionName() {

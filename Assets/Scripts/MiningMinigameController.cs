@@ -77,11 +77,15 @@ namespace Assets.Scripts {
         private Vector3 PickaxeStartLocalPos;
         [SerializeField]
         private Vector3 PickaxeHiddenOffset;
+        private Vector3 StartPosAnimator;
+        private Quaternion StartRotAnimator;
         private Vector3 PickaxeHiddenPos => PickaxeHiddenOffset + PickaxeStartLocalPos;
         private readonly static int HIT_ANIM = Animator.StringToHash("HIT_SUCCESS");
         private readonly static int HIT_FAIL_ANIM = Animator.StringToHash("HIT_FAIL");
 
         private void Awake() {
+            StartPosAnimator = PickaxeAnimator.transform.localPosition;
+            StartRotAnimator = PickaxeAnimator.transform.localRotation;
             Pickaxe.transform.localPosition = PickaxeHiddenPos;
             MiningProgress.OnValueChanged.AddListener((old, new_) => {
                 if (this.Deposit == null)
@@ -107,7 +111,7 @@ namespace Assets.Scripts {
             InteractDetector.enabled = false;
             Input.SwitchCurrentActionMap("Mining");
             //musimy kliknąć lewy myszki kiedy kryształ jest w tym wewnętrznym pasku żeby wydobyć sól, nietrafienie oznacza brak postępu i chwilową niemożność uderzenia ponownie (jakieś 0.5 sekundy np.)
-            var directionToDeposit = Quaternion.LookRotation((depositToMine.transform.position.ToFlatXZ() - targetSpot.position.ToFlatXZ()).normalized, Vector3.up);
+            var directionToDeposit = Quaternion.LookRotation((depositToMine.transform.position - targetSpot.position).normalized, Vector3.up);
             OldPosition = PlayerCamera.transform.position;
             OldRotation = PlayerCamera.transform.rotation;
             MiningProgress.Value = 0f;
@@ -123,7 +127,10 @@ namespace Assets.Scripts {
                     SpawnSaltIndicatorTimer = SpawnIntervals[UnityEngine.Random.Range(0, SpawnIntervals.Length)];
                 };
                 Pickaxe.gameObject.SetActive(true);
-                Pickaxe.transform.DOLocalMove(PickaxeStartLocalPos, MinigameFadeInDuration).onComplete += () => PickaxeAnimator.enabled = true;
+                PickaxeAnimator.gameObject.SetActive(true);
+                PickaxeAnimator.enabled = true;
+                PickaxeAnimator.Play("default",-1,0);
+                Pickaxe.transform.DOLocalMoveY(PickaxeStartLocalPos.y, MinigameFadeInDuration);
             };
         }
 
@@ -175,6 +182,10 @@ namespace Assets.Scripts {
             this.enabled = false;
             PickaxeAnimator.enabled = false;
             PickaxeAnimator.gameObject.SetActive(false);
+            PickaxeAnimator.transform.localPosition = StartPosAnimator;
+            PickaxeAnimator.transform.localRotation = StartRotAnimator;
+            Pickaxe.SetActive(false);
+            Pickaxe.transform.localPosition = PickaxeHiddenPos;
             for (int i = 0; i < Deposit.StartingCrystalScaleValues.Length; i++) {
                 Deposit.SaltCrystalsToShrink[i].localScale = Deposit.StartingCrystalScaleValues[i];
             }
@@ -192,7 +203,10 @@ namespace Assets.Scripts {
             this.enabled = false;
             this.SpawnSaltIndicatorTimer = -1f;
             PickaxeAnimator.enabled = false;
-            Pickaxe.transform.DOMove(PickaxeHiddenPos, SnapDuration).onComplete += () => Pickaxe.SetActive(false);
+            Pickaxe.SetActive(false);
+            Pickaxe.transform.localPosition = PickaxeHiddenPos;
+            PickaxeAnimator.transform.localRotation = StartRotAnimator;
+            PickaxeAnimator.transform.localPosition = StartPosAnimator;
             AddSalt();
             MinigameCanvasGroup.DOFade(0f, SnapDuration).onComplete += () => {
                 PlayerCamera.transform.DOMove(OldPosition, SnapDuration);
@@ -219,8 +233,8 @@ namespace Assets.Scripts {
             if (this.UnsuccessfulHitTimer > 0)
                 return;
 
-            this.PickaxeAnimator.ResetTrigger(HIT_ANIM);
-            this.PickaxeAnimator.ResetTrigger(HIT_FAIL_ANIM);
+            if (GameManager.Instance.IsPaused)
+                return;
 
             var indicator = GetFirstOverlappingHitIndicator();
             if (indicator == null) {
