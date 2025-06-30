@@ -77,11 +77,15 @@ namespace Assets.Scripts {
         private Vector3 PickaxeStartLocalPos;
         [SerializeField]
         private Vector3 PickaxeHiddenOffset;
+        private Vector3 StartPosAnimator;
+        private Quaternion StartRotAnimator;
         private Vector3 PickaxeHiddenPos => PickaxeHiddenOffset + PickaxeStartLocalPos;
         private readonly static int HIT_ANIM = Animator.StringToHash("HIT_SUCCESS");
         private readonly static int HIT_FAIL_ANIM = Animator.StringToHash("HIT_FAIL");
 
         private void Awake() {
+            StartPosAnimator = PickaxeAnimator.transform.localPosition;
+            StartRotAnimator = PickaxeAnimator.transform.localRotation;
             Pickaxe.transform.localPosition = PickaxeHiddenPos;
             MiningProgress.OnValueChanged.AddListener((old, new_) => {
                 if (this.Deposit == null)
@@ -124,8 +128,9 @@ namespace Assets.Scripts {
                 };
                 Pickaxe.gameObject.SetActive(true);
                 PickaxeAnimator.gameObject.SetActive(true);
+                PickaxeAnimator.enabled = true;
                 PickaxeAnimator.Play("default",-1,0);
-                Pickaxe.transform.DOLocalMove(PickaxeStartLocalPos, MinigameFadeInDuration).onComplete += () => PickaxeAnimator.enabled = true;
+                Pickaxe.transform.DOLocalMoveY(PickaxeStartLocalPos.y, MinigameFadeInDuration);
             };
         }
 
@@ -177,7 +182,10 @@ namespace Assets.Scripts {
             this.enabled = false;
             PickaxeAnimator.enabled = false;
             PickaxeAnimator.gameObject.SetActive(false);
-            Pickaxe.transform.DOLocalMove(PickaxeHiddenPos, SnapDuration);
+            PickaxeAnimator.transform.localPosition = StartPosAnimator;
+            PickaxeAnimator.transform.localRotation = StartRotAnimator;
+            Pickaxe.SetActive(false);
+            Pickaxe.transform.localPosition = PickaxeHiddenPos;
             for (int i = 0; i < Deposit.StartingCrystalScaleValues.Length; i++) {
                 Deposit.SaltCrystalsToShrink[i].localScale = Deposit.StartingCrystalScaleValues[i];
             }
@@ -195,7 +203,10 @@ namespace Assets.Scripts {
             this.enabled = false;
             this.SpawnSaltIndicatorTimer = -1f;
             PickaxeAnimator.enabled = false;
-            Pickaxe.transform.DOLocalMove(PickaxeHiddenPos, SnapDuration).onComplete += () => Pickaxe.SetActive(false);
+            Pickaxe.SetActive(false);
+            Pickaxe.transform.localPosition = PickaxeHiddenPos;
+            PickaxeAnimator.transform.localRotation = StartRotAnimator;
+            PickaxeAnimator.transform.localPosition = StartPosAnimator;
             AddSalt();
             MinigameCanvasGroup.DOFade(0f, SnapDuration).onComplete += () => {
                 PlayerCamera.transform.DOMove(OldPosition, SnapDuration);

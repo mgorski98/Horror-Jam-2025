@@ -6117,8 +6117,8 @@ MonoBehaviour:
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []
-  PickaxeAnimator: {fileID: 0}
-  Pickaxe: {fileID: 0}
+  PickaxeAnimator: {fileID: 6800537519940427987}
+  Pickaxe: {fileID: 4657722704140184480}
   PickaxeStartLocalPos: {x: 0, y: 0, z: 0}
   PickaxeHiddenOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &8040651555066970506
