@@ -5918,7 +5918,19 @@ MonoBehaviour:
     m_ActionId: 99a1b8de-84b6-4c67-b872-1a35e2f01d7b
     m_ActionName: 'Ship/Dock[/Keyboard/x]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1048448108034191308}
+        m_TargetAssemblyTypeName: InteractionDetector, Assembly-CSharp
+        m_MethodName: DoInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2c482d51-6665-4af8-b9f4-658776a147c3
     m_ActionName: 'Global/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0

@@ -124,7 +124,7 @@ namespace Assets.Scripts {
                 };
                 Pickaxe.gameObject.SetActive(true);
                 PickaxeAnimator.gameObject.SetActive(true);
-                PickaxeAnimator.StopPlayback();
+                PickaxeAnimator.Play("default",-1,0);
                 Pickaxe.transform.DOLocalMove(PickaxeStartLocalPos, MinigameFadeInDuration).onComplete += () => PickaxeAnimator.enabled = true;
             };
         }
@@ -222,7 +222,9 @@ namespace Assets.Scripts {
             if (this.UnsuccessfulHitTimer > 0)
                 return;
 
-            this.PickaxeAnimator.StopPlayback();
+            if (GameManager.Instance.IsPaused)
+                return;
+
             var indicator = GetFirstOverlappingHitIndicator();
             if (indicator == null) {
                 //todo: nietrafiony hit, wyświetl o tym informację i ustaw timer, odtwórz GŁOŚNY DŹWIĘK WABIĄCY REKINA, obniż progress o wartość mining strength lub 2*miningstrength
