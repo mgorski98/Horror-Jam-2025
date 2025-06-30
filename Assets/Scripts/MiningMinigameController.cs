@@ -123,6 +123,8 @@ namespace Assets.Scripts {
                     SpawnSaltIndicatorTimer = SpawnIntervals[UnityEngine.Random.Range(0, SpawnIntervals.Length)];
                 };
                 Pickaxe.gameObject.SetActive(true);
+                PickaxeAnimator.gameObject.SetActive(true);
+                PickaxeAnimator.StopPlayback();
                 Pickaxe.transform.DOLocalMove(PickaxeStartLocalPos, MinigameFadeInDuration).onComplete += () => PickaxeAnimator.enabled = true;
             };
         }
@@ -175,6 +177,7 @@ namespace Assets.Scripts {
             this.enabled = false;
             PickaxeAnimator.enabled = false;
             PickaxeAnimator.gameObject.SetActive(false);
+            Pickaxe.transform.DOLocalMove(PickaxeHiddenPos, SnapDuration);
             for (int i = 0; i < Deposit.StartingCrystalScaleValues.Length; i++) {
                 Deposit.SaltCrystalsToShrink[i].localScale = Deposit.StartingCrystalScaleValues[i];
             }
@@ -192,7 +195,7 @@ namespace Assets.Scripts {
             this.enabled = false;
             this.SpawnSaltIndicatorTimer = -1f;
             PickaxeAnimator.enabled = false;
-            Pickaxe.transform.DOMove(PickaxeHiddenPos, SnapDuration).onComplete += () => Pickaxe.SetActive(false);
+            Pickaxe.transform.DOLocalMove(PickaxeHiddenPos, SnapDuration).onComplete += () => Pickaxe.SetActive(false);
             AddSalt();
             MinigameCanvasGroup.DOFade(0f, SnapDuration).onComplete += () => {
                 PlayerCamera.transform.DOMove(OldPosition, SnapDuration);
@@ -219,9 +222,7 @@ namespace Assets.Scripts {
             if (this.UnsuccessfulHitTimer > 0)
                 return;
 
-            this.PickaxeAnimator.ResetTrigger(HIT_ANIM);
-            this.PickaxeAnimator.ResetTrigger(HIT_FAIL_ANIM);
-
+            this.PickaxeAnimator.StopPlayback();
             var indicator = GetFirstOverlappingHitIndicator();
             if (indicator == null) {
                 //todo: nietrafiony hit, wyświetl o tym informację i ustaw timer, odtwórz GŁOŚNY DŹWIĘK WABIĄCY REKINA, obniż progress o wartość mining strength lub 2*miningstrength

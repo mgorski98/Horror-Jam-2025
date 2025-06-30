@@ -26,7 +26,7 @@ public class SaltDeposit : InteractableObject
     }
 
     public override void DoInteract() {
-        if (MiningController != null && !MiningController.enabled) {
+        if (MiningController != null && !MiningController.enabled && MiningController.StorageRef.IsFull == false) {
             MiningController.InitMining(this);
         }
     }
