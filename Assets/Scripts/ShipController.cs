@@ -137,6 +137,7 @@ namespace Assets.Scripts {
                     //todo: otworzyć drzwiczki czy tam aktywować coś co pozwoli wyjść na molo/dok
                     IsDocked = true;
                     DockIndicator.SetDocked(true);
+                    StopControllingShip();
                 };
 
                 DockingTweens[1].onUpdate += () => {

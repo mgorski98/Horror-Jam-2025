@@ -5553,6 +5553,8 @@ GameObject:
   - component: {fileID: 6296267834561494811}
   - component: {fileID: 8373652025598732742}
   - component: {fileID: 8040651555066970506}
+  - component: {fileID: 6085601626632325213}
+  - component: {fileID: 4077455770164413986}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -5577,6 +5579,7 @@ Transform:
   - {fileID: 2018733425720740310}
   - {fileID: 5773281425586870394}
   - {fileID: 3360677101964218395}
+  - {fileID: 3050773336728121707}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &68501738545928222
@@ -6138,12 +6141,53 @@ MonoBehaviour:
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []
-  MaxSaltStorage: 30000
+  MaxSaltStorage: 40
   MaxSaltEncumbranceSlowDown: 10
   BarometerArmRotationTransform: {fileID: 0}
   ZeroBarometerRotation: {x: 0, y: -130, z: 0}
   MaxBarometerRotation: {x: 0, y: 130, z: 0}
   BarometerPointerOscillationStrength: 0.1
+--- !u!65 &6085601626632325213
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568179579492382839}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4077455770164413986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568179579492382839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45853e46162b99a4197fefa4933a612f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipRoot: {fileID: 0}
+  Player: {fileID: 3821609460929578464}
+  DockIndicator: {fileID: 0}
+  CheckOriginTransform: {fileID: 3050773336728121707}
+  CheckRange: 1
+  CheckMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4644259470461842488
 GameObject:
   m_ObjectHideFlags: 0
@@ -6271,6 +6315,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   ActionName: Ship/Move
+--- !u!1 &5154526222062258700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3050773336728121707}
+  m_Layer: 3
+  m_Name: ShipChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3050773336728121707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154526222062258700}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.843, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3821609460929578464}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5428140400104900471
 GameObject:
   m_ObjectHideFlags: 0

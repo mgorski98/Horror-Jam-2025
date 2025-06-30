@@ -33,7 +33,6 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 813073793055587643}
   - {fileID: 8174999035334673482}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -920,6 +919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionName: Press
+  LocksInInteraction: 0
   ShipControl: {fileID: 0}
   SaltStorageRef: {fileID: 0}
   ButtonGuard: {fileID: 2455562306304178657}
@@ -1147,6 +1147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionName: Steer
+  LocksInInteraction: 0
   FPSController: {fileID: 0}
   ShipController: {fileID: 0}
 --- !u!54 &5052596222582928454
@@ -1681,75 +1682,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6655680198392249310}
   m_LocalEulerAnglesHint: {x: -22.166, y: -0.01, z: -0.115}
---- !u!1 &6229670193045667765
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 813073793055587643}
-  - component: {fileID: 7251366217114149585}
-  - component: {fileID: 8948124809432834689}
-  m_Layer: 0
-  m_Name: Detector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &813073793055587643
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6229670193045667765}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5129481974373279581}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7251366217114149585
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6229670193045667765}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.400216, y: 0.6881169, z: 2.49}
-  m_Center: {x: 0.48917866, y: 0.15594155, z: 0}
---- !u!114 &8948124809432834689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6229670193045667765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45853e46162b99a4197fefa4933a612f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShipRoot: {fileID: 8174999035334673482}
-  Player: {fileID: 0}
-  DockIndicator: {fileID: 0}
 --- !u!1 &6278079064405376375
 GameObject:
   m_ObjectHideFlags: 0

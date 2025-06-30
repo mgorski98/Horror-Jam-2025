@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace Assets.Scripts {
     //note: nie wiem czy coś tutaj jeszcze dodać, zobaczymy
     public class SaltStorageData : MonoBehaviour {
-        [Tooltip("How much salt do we currently have stored, in grams")]
+        [Tooltip("How much salt do we currently have stored, in kg")]
         public ObservableValue<int> CurrentStoredSalt = new(0);
         [Tooltip("How much can we store")]
         public int MaxSaltStorage;

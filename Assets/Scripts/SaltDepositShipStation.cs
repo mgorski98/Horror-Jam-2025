@@ -8,8 +8,8 @@ using UnityEngine;
 
 namespace Assets.Scripts {
     public class SaltDepositShipStation : MonoBehaviour {
-        public int NeededSaltInGrams = 0;
-        public bool IsDone => NeededSaltInGrams <= 0;
+        public int NeededSaltInKg = 0;
+        public bool IsDone => NeededSaltInKg <= 0;
 
         public ShipController PlayerShip;
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts {
         public void UpdateShipDumpStatus(bool entered) {
             if (entered) {
                 PlayerShip.DumpButton.OpenButtonGuard();
-                NeededSaltText.text = $"Salt needed:\n{NeededSaltInGrams / 1000} kg";
+                NeededSaltText.text = $"Salt needed:\n{NeededSaltInKg} kg";
             } else {
                 PlayerShip.DumpButton.CloseButtonGuard();
                 NeededSaltText.text = string.Empty;
